@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Palette } from 'lucide-react';
+import { Palette, ArrowRightLeft } from 'lucide-react';
 
 interface ColorSelectorProps {
   textColor: string;
@@ -27,6 +27,22 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Color Swap Button */}
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              onTextColorChange(backgroundColor);
+              onBackgroundColorChange(textColor);
+            }}
+            className="flex items-center gap-2"
+          >
+            <ArrowRightLeft className="w-4 h-4" />
+            Swap Colors
+          </Button>
+        </div>
+
         {/* Text Color */}
         <div className="space-y-3">
           <Label className="text-foreground text-sm font-medium">Text Color</Label>
