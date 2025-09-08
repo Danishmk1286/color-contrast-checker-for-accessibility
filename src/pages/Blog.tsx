@@ -143,10 +143,10 @@ const Blog = () => {
     tags: ["Tools", "Design Systems", "Best Practices", "UX"]
   }];
   return <Layout>
-      <main className="container mx-auto sm:py-8 md:py-12 max-w-6xl px-[17px] py-0 my-[7px]">
+      <main className="container mx-auto sm:py-8 md:py-16 max-w-6xl px-[17px] py-0 my-[7px]">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4 md:mb-6">
             Accessibility & WCAG Blog
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -155,10 +155,10 @@ const Blog = () => {
         </div>
 
         {/* Blog Posts */}
-        <div className="grid gap-6 sm:gap-8 md:gap-12 py-[24px]">
+        <div className="grid gap-6 sm:gap-8 md:gap-10 py-0 md:py-8">
           {blogPosts.map((post, index) => <article key={post.id} className="group">
               <Card className="border-border hover:shadow-lg transition-all duration-300">
-                <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6 py-[42px]">
+                <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6 md:p-8">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 sm:gap-4 text-sm text-muted-foreground mb-3">
