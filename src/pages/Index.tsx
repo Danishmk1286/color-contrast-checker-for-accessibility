@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
+import ResourceLinks from '@/components/ResourceLinks';
 import ColorSelector from '@/components/ColorSelector';
 import ContrastResults from '@/components/ContrastResults';
 import LivePreview from '@/components/LivePreview';
@@ -68,40 +71,42 @@ const Index = () => {
     const ratio = getContrastRatio(textColor, backgroundColor);
     setContrastResult(checkCompliance(ratio));
   }, [textColor, backgroundColor]);
-  return <Layout>
+  return <>
+    <SEOHead />
+    <Layout>
       {/* Hero Section - Mobile centered */}
       <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-10 sm:py-8 md:py-[52px]">
         <div className="w-full md:container md:mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 sm:mb-6">
             <Zap className="w-4 h-4" />
-            WCAG 2.1 Compliant
+            WCAG 2.1 AA & AAA Compliant
           </div>
           
           <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 sm:mb-6 leading-tight px-2 sm:px-0">
-            Color Contrast Checker &<br />
-            <span className="text-primary">Color Palette Generator</span>
+            Free Color Contrast Checker &<br />
+            <span className="text-primary">WCAG Accessibility Tool</span>
           </h1>
           
           <p className="text-xl sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
-            Professional Color Contrast Checker and Color Palette Generator for WCAG color accessibility compliance testing. Ensure your designs meet AA and AAA accessibility standards for optimal user experience.
+            Professional free WCAG color contrast checker and accessibility testing tool. Ensure your website colors meet AA and AAA compliance standards for inclusive web design. Test contrast ratios, generate accessible color palettes, and create barrier-free digital experiences.
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 sm:gap-3 md:gap-4 mb-8 px-2 sm:px-0">
             <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
               <Shield className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
-              WCAG 2.1 Compliant
+              WCAG 2.1 & 2.2 Compliant
             </Badge>
             <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
               <Eye className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
-              Real-time Preview
+              Real-time Testing
             </Badge>
             <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
               <Palette className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
-              AA & AAA Testing
+              AA & AAA Standards
             </Badge>
             <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
               <CheckCircle className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
-              Color Palette Generator
+              Free Accessibility Tool
             </Badge>
           </div>
         </div>
@@ -122,8 +127,8 @@ const Index = () => {
             <div className="px-6 sm:px-4 md:px-0 lg:col-span-6">
               <div className="sticky top-4 lg:top-20">
                 <div className="mb-4 sm:mb-4 lg:hidden text-center sm:text-left">
-                  <h2 className="text-xl sm:text-lg font-semibold text-foreground mb-2">Live Preview</h2>
-                  <p className="text-base sm:text-sm text-muted-foreground">See how your colors look in real interfaces</p>
+                  <h2 className="text-xl sm:text-lg font-semibold text-foreground mb-2">Live Contrast Preview</h2>
+                  <p className="text-base sm:text-sm text-muted-foreground">See how your colors perform in real website interfaces and components</p>
                 </div>
                 <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
               </div>
@@ -131,6 +136,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Resource Links Section */}
+      <ResourceLinks />
 
       {/* Why Use Section - Mobile centered */}
       <section className="py-8 md:py-12 px-4 bg-card/30 my-[20px] lg:py-[68px]">
@@ -252,6 +260,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-    </Layout>;
+    </Layout>
+  </>;
 };
 export default Index;

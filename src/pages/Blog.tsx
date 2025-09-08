@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -142,7 +143,13 @@ const Blog = () => {
     readTime: "12 min read",
     tags: ["Tools", "Design Systems", "Best Practices", "UX"]
   }];
-  return <Layout>
+  return <>
+    <SEOHead 
+      title="Web Accessibility Blog | WCAG Guidelines & Color Contrast Best Practices"
+      description="Expert insights on web accessibility, WCAG compliance, and color contrast best practices. Learn how to create inclusive designs that meet accessibility standards."
+      canonicalUrl="https://color-contrast-checker-for-accessibility.lovable.app/blog"
+    />
+    <Layout>
       <main className="container mx-auto sm:py-8 md:py-16 max-w-6xl px-[17px] py-0 my-[7px]">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
@@ -214,6 +221,7 @@ const Blog = () => {
           
         </div>
       </main>
-    </Layout>;
+    </Layout>
+  </>;
 };
 export default Blog;

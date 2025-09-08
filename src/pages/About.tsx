@@ -1,6 +1,7 @@
-import { ArrowLeft, Code, Palette, Accessibility, Mail } from 'lucide-react';
+import { ArrowLeft, Code, Palette, Accessibility, Mail, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -34,7 +35,13 @@ const About = () => {
   ];
 
   return (
-    <Layout>
+    <>
+      <SEOHead 
+        title="About Color Contrast Checker | WCAG Accessibility Tool Documentation"
+        description="Learn about our professional WCAG color contrast checker and accessibility testing tool. Built with modern web technologies for designers and developers who prioritize inclusive design."
+        canonicalUrl="https://color-contrast-checker-for-accessibility.lovable.app/about"
+      />
+      <Layout>
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-16 z-10">
         <div className="container mx-auto px-4 py-4">
@@ -140,6 +147,84 @@ const About = () => {
           </CardContent>
         </Card>
 
+        {/* Additional SEO Resources */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Related Accessibility Resources</CardTitle>
+            <CardDescription>
+              External resources and guidelines for web accessibility compliance
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <h4 className="font-medium text-foreground">Official Guidelines</h4>
+                <div className="space-y-2">
+                  <a 
+                    href="https://www.w3.org/WAI/WCAG21/Understanding/"
+                    className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    WCAG 2.1 Guidelines - W3C
+                  </a>
+                  <a 
+                    href="https://www.section508.gov/"
+                    className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Section 508 Standards
+                  </a>
+                  <a 
+                    href="https://www.ada.gov/"
+                    className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    ADA Compliance Guide
+                  </a>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <h4 className="font-medium text-foreground">Testing Tools</h4>
+                <div className="space-y-2">
+                  <a 
+                    href="https://webaim.org/resources/contrastchecker/"
+                    className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    WebAIM Contrast Checker
+                  </a>
+                  <a 
+                    href="https://www.deque.com/axe/"
+                    className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    axe Accessibility Testing
+                  </a>
+                  <a 
+                    href="https://wave.webaim.org/"
+                    className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    WAVE Web Accessibility Evaluator
+                  </a>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Contact for Bug Reports */}
         <Card>
           <CardHeader>
@@ -173,6 +258,7 @@ const About = () => {
         </Card>
       </main>
     </Layout>
+    </>
   );
 };
 

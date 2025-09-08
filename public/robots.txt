@@ -1,7 +1,7 @@
 User-agent: Googlebot
 Allow: /
 
-User-agent: Bingbot
+User-agent: Bingbot  
 Allow: /
 
 User-agent: Twitterbot
@@ -10,7 +10,20 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.thecolorcontrastchecker.com/sitemap.xml
+# Enhanced crawling for accessibility content
+Allow: /blog
+Allow: /about
+Allow: /blog/*
+
+Crawl-delay: 1
+
+Sitemap: https://color-contrast-checker-for-accessibility.lovable.app/sitemap.xml
