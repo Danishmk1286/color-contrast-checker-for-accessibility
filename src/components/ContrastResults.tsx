@@ -26,19 +26,19 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
     const IconComponent = deviceType === 'smartphone' ? Smartphone : Monitor;
     
     return (
-      <div className="flex items-center justify-between p-4 sm:p-2.5 rounded-xl sm:rounded-md bg-muted/50 border border-border/50">
-        <div className="flex items-center gap-3 sm:gap-2">
-          <div className="bg-primary/10 px-3 py-1.5 sm:px-2 sm:py-0.5 rounded-lg sm:rounded text-sm sm:text-xs font-medium text-primary border border-primary/20">
+      <div className="flex items-center justify-between p-3 sm:p-2.5 rounded-lg sm:rounded-xl bg-muted/30 sm:bg-muted/50 border-0 sm:border border-border/50">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="bg-primary/20 sm:bg-primary/10 px-2 py-1 sm:px-3 sm:py-1.5 rounded sm:rounded-lg text-xs sm:text-sm font-medium text-primary border-0 sm:border border-primary/20">
             {label}
           </div>
-          <div className="flex items-center gap-2 sm:gap-1">
-            <IconComponent className="w-4 h-4 sm:w-3 sm:h-3 text-muted-foreground" />
-            <span className="text-sm sm:text-xs text-foreground font-medium">{size}</span>
+          <div className="flex items-center gap-1 sm:gap-2">
+            <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
+            <span className="text-xs sm:text-sm text-foreground font-medium">{size}</span>
           </div>
         </div>
-        <div className="flex items-center gap-2 sm:gap-1">
+        <div className="flex items-center gap-1 sm:gap-2">
           {getPassIcon(passed)}
-          <span className={`text-sm sm:text-xs font-semibold ${passed ? 'text-success' : 'text-destructive'}`}>
+          <span className={`text-xs sm:text-sm font-semibold ${passed ? 'text-success' : 'text-destructive'}`}>
             {passed ? 'Pass' : 'Fail'}
           </span>
         </div>
