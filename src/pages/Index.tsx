@@ -137,9 +137,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Resource Links Section */}
-      <ResourceLinks />
-
       {/* Why Use Section - Mobile centered */}
       <section className="py-8 md:py-12 px-4 bg-card/30 my-[20px] lg:py-[68px]">
         <div className="container mx-auto max-w-6xl text-center">
@@ -260,6 +257,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Resource Links Section - Bottom of page */}
+      <ResourceLinks />
     </Layout>
   </>;
 };
