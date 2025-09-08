@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="mt-12 bg-card/50 border-t">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl text-center">
         {/* GitHub Feedback Section */}
         <div className="text-center mb-8 p-6 bg-primary/5 rounded-lg border border-primary/20">
           <div className="flex justify-center mb-4">
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
 
         <Separator className="mb-6" />
         
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6">
+        <div className="flex flex-col items-center justify-center gap-4 pb-6">
           <div className="text-sm text-muted-foreground">
             © 2024 Color Vision Check Buddy. All rights reserved.
           </div>
