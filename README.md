@@ -1,6 +1,6 @@
 # WCAG Color Contrast Checker 🎨🧠
 
-**Live Demo**: [www.thecolorcontrastchecker.com)
+🔗 **[Try it here]([https://tint-and-shade-color-pallet-generator.lovable.app/](https://tint-and-shade-color-pallet-generator.lovable.app/))**
 
 A sleek, responsive, and developer-friendly **WCAG-compliant color contrast checker** built with **React**, **TypeScript**, and **Tailwind CSS**. This tool helps designers and developers ensure their color combinations meet accessibility standards for users with visual impairments.
 
