@@ -58,12 +58,65 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
           </div>
         </div>
 
-        {/* WCAG Results */}
-        <div className="space-y-2">
-          {getPassBadge(result.aaNormal, 'AA', 'Small Text')}
-          {getPassBadge(result.aaLarge, 'AA', 'Large Text')}
-          {getPassBadge(result.aaaNormal, 'AAA', 'Small Text')}
-          {getPassBadge(result.aaaLarge, 'AAA', 'Large Text')}
+        {/* WCAG 2.1 Text Examples */}
+        <div className="space-y-4">
+          <div className="text-center text-xs font-medium text-muted-foreground mb-2">
+            WCAG 2.1 Compliance Examples
+          </div>
+          
+          {/* Normal Text Examples */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 rounded-md bg-muted">
+              <div className="flex-1">
+                <div className="text-sm font-medium text-foreground mb-1">Normal Text (16px)</div>
+                <div className="text-sm text-foreground leading-relaxed">
+                  This is normal text at 16px. It demonstrates how readable the text appears with the current contrast ratio for standard body text.
+                </div>
+              </div>
+              <div className="flex flex-col items-end gap-1 ml-4">
+                <div className="flex items-center gap-1">
+                  {getPassIcon(result.aaNormal)}
+                  <span className={`text-xs font-medium ${result.aaNormal ? 'text-success' : 'text-destructive'}`}>
+                    AA {result.aaNormal ? 'Pass' : 'Fail'}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {getPassIcon(result.aaaNormal)}
+                  <span className={`text-xs font-medium ${result.aaaNormal ? 'text-success' : 'text-destructive'}`}>
+                    AAA {result.aaaNormal ? 'Pass' : 'Fail'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Large Text Examples */}
+            <div className="flex items-center justify-between p-3 rounded-md bg-muted">
+              <div className="flex-1">
+                <div className="text-sm font-medium text-foreground mb-1">Large Text (24px)</div>
+                <div className="text-2xl text-foreground leading-relaxed">
+                  Large text example at 24px
+                </div>
+                <div className="text-sm font-medium text-foreground mb-1 mt-3">Bold Text (18px+)</div>
+                <div className="text-lg font-bold text-foreground leading-relaxed">
+                  Bold text example at 18px
+                </div>
+              </div>
+              <div className="flex flex-col items-end gap-1 ml-4">
+                <div className="flex items-center gap-1">
+                  {getPassIcon(result.aaLarge)}
+                  <span className={`text-xs font-medium ${result.aaLarge ? 'text-success' : 'text-destructive'}`}>
+                    AA {result.aaLarge ? 'Pass' : 'Fail'}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {getPassIcon(result.aaaLarge)}
+                  <span className={`text-xs font-medium ${result.aaaLarge ? 'text-success' : 'text-destructive'}`}>
+                    AAA {result.aaaLarge ? 'Pass' : 'Fail'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Guidelines */}
