@@ -25,7 +25,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
 
   return (
     <Card className="border-border bg-card rounded-lg sm:rounded-none md:rounded-lg shadow-sm sm:shadow-none md:shadow-sm">
-      <CardHeader className="pb-6 sm:pb-4 px-6 sm:px-4 md:px-6 pt-6 sm:pt-4 md:pt-6">
+      <CardHeader className="pb-6 sm:pb-4 px-6 sm:px-4 md:px-6 pt-6 sm:pt-4 md:pt-6 text-center sm:text-left">
         <CardTitle className="text-card-foreground flex items-center justify-center sm:justify-start gap-3 text-xl sm:text-lg">
           <Palette className="w-6 h-6 sm:w-5 sm:h-5 text-primary" />
           Color Selection

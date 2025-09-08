@@ -70,20 +70,20 @@ const Index = () => {
   }, [textColor, backgroundColor]);
   return (
     <Layout>
-      {/* Hero Section - Mobile optimized */}
-      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-12 sm:py-8 md:py-16">
+      {/* Hero Section - Mobile centered */}
+      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-10 sm:py-8 md:py-16">
         <div className="w-full md:container md:mx-auto text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8 sm:mb-6">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 sm:mb-6">
             <Zap className="w-4 h-4" />
             WCAG 2.1 Compliant
           </div>
           
-          <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8 sm:mb-6 leading-tight px-2 sm:px-0">
+          <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 sm:mb-6 leading-tight px-2 sm:px-0">
             Color Contrast Checker &<br />
             <span className="text-primary">Color Palette Generator</span>
           </h1>
           
-          <p className="text-xl sm:text-lg md:text-xl text-muted-foreground mb-10 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
+          <p className="text-xl sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
             Professional Color Contrast Checker and Color Palette Generator for WCAG color accessibility compliance testing. Ensure your designs meet AA and AAA accessibility standards for optimal user experience.
           </p>
           
@@ -108,12 +108,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Main Tool Section - Professional mobile spacing */}
-      <section className="py-8 sm:py-6 md:py-8 lg:py-12 px-0 md:px-4">
+      {/* Main Tool Section - Balanced mobile spacing, desktop sticky sidebar */}
+      <section className="py-6 sm:py-6 md:py-8 lg:py-12 px-0 md:px-4">
         <div className="w-full md:container md:mx-auto md:max-w-7xl">
-          <div className="grid gap-6 sm:gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
-            {/* Controls Section - Professional mobile design */}
-            <div className="px-6 sm:px-4 md:px-0 lg:col-span-4 space-y-6 sm:space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+          <div className="grid gap-4 sm:gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
+            {/* Controls Section - Desktop no scroll, mobile centered */}
+            <div className="px-6 sm:px-4 md:px-0 lg:col-span-4 space-y-4 sm:space-y-4 lg:sticky lg:top-4 lg:self-start lg:h-fit">
               <ColorSelector 
                 textColor={textColor} 
                 backgroundColor={backgroundColor} 
@@ -124,10 +124,10 @@ const Index = () => {
               {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
 
-            {/* Live Preview Section - Mobile optimized */}
+            {/* Live Preview Section - Mobile centered */}
             <div className="px-6 sm:px-4 md:px-0 lg:col-span-6">
               <div className="sticky top-4 lg:top-20">
-                <div className="mb-6 sm:mb-4 lg:hidden">
+                <div className="mb-4 sm:mb-4 lg:hidden text-center sm:text-left">
                   <h2 className="text-xl sm:text-lg font-semibold text-foreground mb-2">Live Preview</h2>
                   <p className="text-base sm:text-sm text-muted-foreground">See how your colors look in real interfaces</p>
                 </div>
@@ -138,8 +138,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Use Section */}
-      <section className="py-12 md:py-16 px-4 bg-card/30">
+      {/* Why Use Section - Mobile centered */}
+      <section className="py-8 md:py-12 lg:py-16 px-4 bg-card/30">
         <div className="container mx-auto max-w-6xl text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Why Use Our Color Contrast Checker & Color Palette Generator?
@@ -180,8 +180,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tool Suite Section - Mobile Optimized */}
-      <section className="py-12 md:py-16 px-4 bg-card/30">
+      {/* Tool Suite Section - Mobile centered, balanced spacing */}
+      <section className="py-8 md:py-12 lg:py-16 px-4 bg-card/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
@@ -218,38 +218,38 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Professional Features */}
-      <section className="py-16 px-4 bg-card/30">
+      {/* Professional Features - Mobile centered, consistent spacing */}
+      <section className="py-8 md:py-12 lg:py-16 px-4 bg-card/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-8 md:mb-12">
             Professional Color Palette Generator Features
           </h2>
-          <p className="text-lg text-muted-foreground text-center mb-12">
+          <p className="text-base md:text-lg text-muted-foreground text-center mb-8 md:mb-12 max-w-3xl mx-auto">
             Beyond just a color contrast checker, our tool serves as a comprehensive color palette generator for designers and developers who prioritize accessibility.
           </p>
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {[{
             title: "Real-time Testing",
             description: "Instant feedback with comprehensive platform against WCAG standards as you adjust colors.",
-            features: ["Live contrast ratios", "Multiple text sizes", "Different use contexts"]
+            features: ["Live contrast ratios", "Multiple text sizes", "Interactive previews"]
           }, {
             title: "Multiple Text Sizes",
             description: "Test colors against different text sizes and weights per real website scenarios.",
-            features: ["Large text testing", "Normal text analysis", "Small text scenarios"]
+            features: ["Large text testing", "Normal text analysis", "Interactive previews"]
           }, {
             title: "Visual Interface Preview",
             description: "See exactly how your color combinations look in context before deployment.",
             features: ["Component previews", "Card interfaces", "Form elements"]
-          }].map((feature, index) => <Card key={index} className="p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-3">
+          }].map((feature, index) => <Card key={index} className="p-4 md:p-6 text-center">
+                <h3 className="text-lg md:text-xl font-semibold text-foreground mb-3">
                   {feature.title}
                 </h3>
                 <p className="text-muted-foreground mb-4">
                   {feature.description}
                 </p>
                 <ul className="space-y-2">
-                  {feature.features.map((item, itemIndex) => <li key={itemIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  {feature.features.map((item, itemIndex) => <li key={itemIndex} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                       <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
                       {item}
                     </li>)}

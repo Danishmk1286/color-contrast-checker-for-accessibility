@@ -48,8 +48,8 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
 
   return (
     <Card className="border-border bg-card rounded-lg sm:rounded-none md:rounded-lg shadow-sm sm:shadow-none md:shadow-sm">
-      <CardHeader className="pb-4 sm:pb-3 px-6 sm:px-4 md:px-6 pt-6 sm:pt-4 md:pt-6">
-        <CardTitle className="text-foreground flex items-center gap-3 text-lg sm:text-base">
+      <CardHeader className="pb-4 sm:pb-3 px-6 sm:px-4 md:px-6 pt-6 sm:pt-4 md:pt-6 text-center sm:text-left">
+        <CardTitle className="text-foreground flex items-center justify-center sm:justify-start gap-3 text-lg sm:text-base">
           <TrendingUp className="w-6 h-6 sm:w-4 sm:h-4 text-primary" />
           Contrast Results
         </CardTitle>
