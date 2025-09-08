@@ -2,15 +2,15 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Monitor, Smartphone } from 'lucide-react';
-
 interface LivePreviewProps {
   textColor: string;
   backgroundColor: string;
 }
-
-const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor }) => {
-  return (
-    <div className="space-y-6">
+const LivePreview: React.FC<LivePreviewProps> = ({
+  textColor,
+  backgroundColor
+}) => {
+  return <div className="space-y-6">
       {/* Preview Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-foreground">Live Color Contrast Preview</h2>
@@ -27,16 +27,21 @@ const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor })
       </div>
 
       {/* Live Preview */}
-      <div className="text-sm text-muted-foreground mb-4">Live Preview</div>
+      
       
       {/* Mock Website Preview */}
-      <Card 
-        className="border-2 border-border overflow-hidden"
-        style={{ backgroundColor, color: textColor }}
-      >
-        <div className="p-6 space-y-6" style={{ backgroundColor, color: textColor }}>
+      <Card className="border-2 border-border overflow-hidden" style={{
+      backgroundColor,
+      color: textColor
+    }}>
+        <div className="p-6 space-y-6" style={{
+        backgroundColor,
+        color: textColor
+      }}>
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: textColor + '20' }}>
+          <div className="flex items-center justify-between pb-4 border-b" style={{
+          borderColor: textColor + '20'
+        }}>
             <div className="flex items-center gap-3">
               <div className="text-lg font-bold">Your Brand</div>
             </div>
@@ -59,21 +64,21 @@ const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor })
             <p className="text-sm mb-8 opacity-70">
               This is Small AA Text (14px) - Needs highest contrast
             </p>
-            <Button 
-              className="px-6 py-2 rounded-md font-medium"
-              style={{ 
-                backgroundColor: textColor, 
-                color: backgroundColor,
-                border: `1px solid ${textColor}`
-              }}
-            >
+            <Button className="px-6 py-2 rounded-md font-medium" style={{
+            backgroundColor: textColor,
+            color: backgroundColor,
+            border: `1px solid ${textColor}`
+          }}>
               Get Started Button
             </Button>
           </div>
 
           {/* Content Sections */}
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-4" style={{ backgroundColor: textColor + '10', color: textColor }}>
+            <Card className="p-4" style={{
+            backgroundColor: textColor + '10',
+            color: textColor
+          }}>
               <h3 className="font-semibold mb-2">Card Title</h3>
               <p className="text-sm opacity-80">
                 More content with our text readability and 
@@ -82,7 +87,10 @@ const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor })
               <div className="mt-3 text-xs opacity-60">View Details →</div>
             </Card>
 
-            <Card className="p-4" style={{ backgroundColor: textColor + '10', color: textColor }}>
+            <Card className="p-4" style={{
+            backgroundColor: textColor + '10',
+            color: textColor
+          }}>
               <h3 className="font-semibold mb-2">Another Card</h3>
               <p className="text-sm opacity-80">
                 More content with our text readability and 
@@ -97,43 +105,33 @@ const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor })
             <h3 className="font-semibold">Form Elements</h3>
             <div className="space-y-2">
               <label className="block text-sm font-medium">Input Label</label>
-              <div 
-                className="w-full p-3 rounded border text-sm"
-                style={{ 
-                  borderColor: textColor + '40',
-                  backgroundColor: backgroundColor,
-                  color: textColor
-                }}
-              >
+              <div className="w-full p-3 rounded border text-sm" style={{
+              borderColor: textColor + '40',
+              backgroundColor: backgroundColor,
+              color: textColor
+            }}>
                 Placeholder text with descriptive text
               </div>
               
               <div className="flex items-center gap-2 mt-3">
-                <div 
-                  className="w-4 h-4 border rounded"
-                  style={{ borderColor: textColor + '60' }}
-                />
+                <div className="w-4 h-4 border rounded" style={{
+                borderColor: textColor + '60'
+              }} />
                 <span className="text-sm">Checkbox with descriptive text</span>
               </div>
               
               <div className="flex gap-3 mt-4">
-                <Button 
-                  className="px-4 py-2 rounded text-sm"
-                  style={{ 
-                    backgroundColor: textColor + '20',
-                    color: textColor,
-                    border: `1px solid ${textColor + '40'}`
-                  }}
-                >
+                <Button className="px-4 py-2 rounded text-sm" style={{
+                backgroundColor: textColor + '20',
+                color: textColor,
+                border: `1px solid ${textColor + '40'}`
+              }}>
                   Secondary Button
                 </Button>
-                <Button 
-                  className="px-4 py-2 rounded text-sm"
-                  style={{ 
-                    backgroundColor: textColor,
-                    color: backgroundColor
-                  }}
-                >
+                <Button className="px-4 py-2 rounded text-sm" style={{
+                backgroundColor: textColor,
+                color: backgroundColor
+              }}>
                   Primary Button
                 </Button>
               </div>
@@ -148,10 +146,10 @@ const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor })
           <CardTitle>Test Size Examples with WCAG Standards</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div 
-            className="p-4 rounded-lg"
-            style={{ backgroundColor, color: textColor }}
-          >
+          <div className="p-4 rounded-lg" style={{
+          backgroundColor,
+          color: textColor
+        }}>
             <div className="text-2xl font-semibold mb-2">Large AA Text (24px) - Passes AA at 3:1 contrast</div>
             <div className="text-lg mb-2">Large AA Text (20px) - Passes AA at 3:1 contrast</div>
             <div className="text-lg font-bold mb-2">Large AA Text (18px) - Passes AA at 3:1 contrast</div>
@@ -160,8 +158,6 @@ const LivePreview: React.FC<LivePreviewProps> = ({ textColor, backgroundColor })
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default LivePreview;
