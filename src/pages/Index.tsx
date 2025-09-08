@@ -68,10 +68,9 @@ const Index = () => {
     const ratio = getContrastRatio(textColor, backgroundColor);
     setContrastResult(checkCompliance(ratio));
   }, [textColor, backgroundColor]);
-  return (
-    <Layout>
+  return <Layout>
       {/* Hero Section - Mobile centered */}
-      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-10 sm:py-8 md:py-16">
+      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-10 sm:py-8 md:py-[34px]">
         <div className="w-full md:container md:mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 sm:mb-6">
             <Zap className="w-4 h-4" />
@@ -114,12 +113,7 @@ const Index = () => {
           <div className="grid gap-4 sm:gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
             {/* Controls Section - Desktop no scroll, mobile centered */}
             <div className="px-6 sm:px-4 md:px-0 lg:col-span-4 space-y-4 sm:space-y-4 lg:sticky lg:top-4 lg:self-start lg:h-fit">
-              <ColorSelector 
-                textColor={textColor} 
-                backgroundColor={backgroundColor} 
-                onTextColorChange={setTextColor} 
-                onBackgroundColorChange={setBackgroundColor} 
-              />
+              <ColorSelector textColor={textColor} backgroundColor={backgroundColor} onTextColorChange={setTextColor} onBackgroundColorChange={setBackgroundColor} />
               
               {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
@@ -258,7 +252,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 };
 export default Index;
