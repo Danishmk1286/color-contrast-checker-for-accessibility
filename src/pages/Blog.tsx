@@ -149,56 +149,56 @@ const Blog = () => {
 
   return (
     <Layout>
-      <main className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
+      <main className="container mx-auto px-4 py-6 sm:py-8 md:py-12 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
             Accessibility & WCAG Blog
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
             Insights, best practices, and updates on web accessibility and color contrast standards
           </p>
         </div>
 
         {/* Blog Posts */}
-        <div className="grid gap-8 md:gap-12">
+        <div className="grid gap-6 sm:gap-8 md:gap-12">
           {blogPosts.map((post, index) => (
             <article key={post.id} className="group">
               <Card className="border-border hover:shadow-lg transition-all duration-300">
-                <CardHeader className="pb-4">
+                <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-2">
-                          <User className="w-4 h-4" />
+                          <User className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{post.author}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CalendarDays className="w-4 h-4" />
-                          <span>{new Date(post.date).toLocaleDateString('en-US', { 
+                          <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span className="text-xs sm:text-sm">{new Date(post.date).toLocaleDateString('en-US', { 
                             year: 'numeric', 
-                            month: 'long', 
+                            month: 'short', 
                             day: 'numeric' 
                           })}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" />
-                          <span>{post.readTime}</span>
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span className="text-xs sm:text-sm">{post.readTime}</span>
                         </div>
                       </div>
                       
-                      <CardTitle className="text-2xl md:text-3xl leading-tight mb-3 group-hover:text-primary transition-colors">
+                      <CardTitle className="text-xl sm:text-2xl md:text-3xl leading-tight mb-2 sm:mb-3 group-hover:text-primary transition-colors">
                         {post.title}
                       </CardTitle>
                       
-                      <CardDescription className="text-base leading-relaxed">
+                      <CardDescription className="text-sm sm:text-base leading-relaxed">
                         {post.excerpt}
                       </CardDescription>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mt-4">
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                       {post.tags.map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs">
                           {tag}
@@ -208,7 +208,7 @@ const Blog = () => {
                     
                     <Button 
                       variant="ghost" 
-                      className="gap-2 text-primary hover:text-primary-foreground hover:bg-primary"
+                      className="gap-2 text-primary hover:text-primary-foreground hover:bg-primary w-full sm:w-auto justify-center sm:justify-start"
                       asChild
                     >
                       <Link to={`/blog/${post.id}`}>
@@ -224,24 +224,24 @@ const Blog = () => {
         </div>
 
         {/* GitHub Feedback Section */}
-        <div className="mt-12 md:mt-16">
-          <div className="text-center p-6 md:p-8 bg-primary/5 rounded-lg border border-primary/20">
-            <div className="flex justify-center mb-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Heart className="w-6 h-6 text-primary animate-pulse" />
+        <div className="mt-8 sm:mt-12 md:mt-16">
+          <div className="text-center p-4 sm:p-6 md:p-8 bg-primary/5 rounded-lg border border-primary/20">
+            <div className="flex justify-center mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary animate-pulse" />
               </div>
             </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-2">
               Enjoying our Color Contrast Checker? ⭐
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base">
               Help others discover this accessibility tool by starring our GitHub repository and sharing your experience. Your support helps us build better tools for everyone!
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 justify-center items-center">
               <Button 
                 onClick={() => window.open('https://github.com/danishmk1286/color-contrast-checker-for-accessibility', '_blank')}
-                className="gap-2 bg-[#24292e] hover:bg-[#24292e]/90 text-white"
-                size="lg"
+                className="gap-2 bg-[#24292e] hover:bg-[#24292e]/90 text-white w-full sm:w-auto"
+                size="default"
               >
                 <Github className="w-4 h-4" />
                 <Star className="w-4 h-4" />
@@ -259,8 +259,8 @@ const Blog = () => {
                   }
                 }}
                 variant="outline"
-                size="lg"
-                className="gap-2"
+                size="default"
+                className="gap-2 w-full sm:w-auto"
               >
                 <Share2 className="w-4 h-4" />
                 Share Your Review
