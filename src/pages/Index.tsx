@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/Header';
+import Layout from '@/components/Layout';
 import ColorSelector from '@/components/ColorSelector';
 import ContrastResults from '@/components/ContrastResults';
 import LivePreview from '@/components/LivePreview';
@@ -68,41 +68,40 @@ const Index = () => {
     const ratio = getContrastRatio(textColor, backgroundColor);
     setContrastResult(checkCompliance(ratio));
   }, [textColor, backgroundColor]);
-  return <div className="min-h-screen bg-background">
-      <Header />
-      
+  return (
+    <Layout>
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-background to-background/50 px-4 py-[30px]">
+      <section className="bg-gradient-to-b from-background to-background/50 px-4 py-8 md:py-16">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Zap className="w-4 h-4" />
             WCAG 2.1 Compliant
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
             Color Contrast Checker &<br />
             <span className="text-primary">Color Palette Generator</span>
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
             Professional Color Contrast Checker and Color Palette Generator for WCAG color accessibility compliance testing. Ensure your designs meet AA and AAA accessibility standards for optimal user experience.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Badge variant="outline" className="gap-2 py-2 px-4">
-              <Shield className="w-4 h-4" />
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
+            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
+              <Shield className="w-3 h-3 md:w-4 md:h-4" />
               WCAG 2.1 Compliant
             </Badge>
-            <Badge variant="outline" className="gap-2 py-2 px-4">
-              <Eye className="w-4 h-4" />
+            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
+              <Eye className="w-3 h-3 md:w-4 md:h-4" />
               Real-time Preview
             </Badge>
-            <Badge variant="outline" className="gap-2 py-2 px-4">
-              <Palette className="w-4 h-4" />
+            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
+              <Palette className="w-3 h-3 md:w-4 md:h-4" />
               AA & AAA Testing
             </Badge>
-            <Badge variant="outline" className="gap-2 py-2 px-4">
-              <CheckCircle className="w-4 h-4" />
+            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
+              <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
               Color Palette Generator
             </Badge>
           </div>
@@ -110,12 +109,17 @@ const Index = () => {
       </section>
 
       {/* Main Tool Section */}
-      <section className="py-12 px-4">
+      <section className="py-8 md:py-12 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-10 gap-8">
+          <div className="grid lg:grid-cols-10 gap-6 lg:gap-8">
             {/* Left Sidebar - Controls */}
-            <div className="lg:col-span-4 space-y-4 sticky top-4 self-start max-h-screen overflow-y-auto">
-              <ColorSelector textColor={textColor} backgroundColor={backgroundColor} onTextColorChange={setTextColor} onBackgroundColorChange={setBackgroundColor} />
+            <div className="lg:col-span-4 space-y-4 lg:sticky lg:top-4 lg:self-start lg:max-h-screen lg:overflow-y-auto">
+              <ColorSelector 
+                textColor={textColor} 
+                backgroundColor={backgroundColor} 
+                onTextColorChange={setTextColor} 
+                onBackgroundColorChange={setBackgroundColor} 
+              />
               
               {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
@@ -129,37 +133,37 @@ const Index = () => {
       </section>
 
       {/* Why Use Section */}
-      <section className="py-16 px-4 bg-card/30">
+      <section className="py-12 md:py-16 px-4 bg-card/30">
         <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Why Use Our Color Contrast Checker & Color Palette Generator?
           </h2>
-          <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto">
             Our professional WCAG color contrast checker ensures your designs are accessible, compliant and provide the best user experiences for everyone. Generate perfect color palettes that meet accessibility standards.
           </p>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {[{
-            icon: <Shield className="w-8 h-8 text-primary" />,
+            icon: <Shield className="w-6 h-6 md:w-8 md:h-8 text-primary" />,
             title: "WCAG Accessibility Compliance",
             description: "Ensure full compliance with WCAG guidelines and meet industry accessibility standards using our precision color contrast checker and fully compliant evaluations."
           }, {
-            icon: <Award className="w-8 h-8 text-primary" />,
+            icon: <Award className="w-6 h-6 md:w-8 md:h-8 text-primary" />,
             title: "Legal Protection",
             description: "Reduce legal risk and ensure regulatory compliance. Our comprehensive accessibility testing helps protect against accessibility-related lawsuits."
           }, {
-            icon: <Users className="w-8 h-8 text-primary" />,
+            icon: <Users className="w-6 h-6 md:w-8 md:h-8 text-primary" />,
             title: "Better User Experience",
             description: "Improve readability and usability for all users including those with visual impairments. Make your content usable and understandable."
           }, {
-            icon: <TrendingUp className="w-8 h-8 text-primary" />,
+            icon: <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-primary" />,
             title: "SEO Benefits",
             description: "Improve your search engine ranking with accessible design. Search engines favor sites that meet accessibility standards and rankings when your site easily readable and usable."
-          }].map((feature, index) => <Card key={index} className="text-center p-6 border-border hover:shadow-lg transition-all duration-300">
+          }].map((feature, index) => <Card key={index} className="text-center p-4 md:p-6 border-border hover:shadow-lg transition-all duration-300">
                 <div className="mb-4 flex justify-center">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
+                <h3 className="text-base md:text-lg font-semibold text-foreground mb-3">
                   {feature.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -248,58 +252,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-4 border-t border-border">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <Palette className="w-5 h-5 text-primary-foreground" />
-                </div>
-                <span className="text-lg font-semibold text-foreground">Color Contrast Checker</span>
-              </div>
-              <p className="text-muted-foreground mb-4">
-                Professional Color Contrast Checker and Color Palette Generator to verify WCAG compliance and ensure your color choices meet AA and AAA accessibility standards.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Resources</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">WCAG Guidelines</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Accessibility Policy</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Color Use Guidelines</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Connect</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Made with ❤️ by</li>
-                <li>
-                  <a href="https://www.linkedin.com/in/danishmk1286/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                    Danish MK
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/danishmk1286" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                    GitHub
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>Built with ❤️ in Lovable</p>
-            <p className="mt-2">
-              Tool guides, tips and helpful content for understanding best practices for using WCAG as your content is available to everyone regardless of accessibility needs.
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>;
+    </Layout>
+  );
 };
 export default Index;

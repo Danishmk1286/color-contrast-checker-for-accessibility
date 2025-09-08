@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
+import Layout from '@/components/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -148,10 +148,8 @@ const Blog = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-12 max-w-6xl">
+    <Layout>
+      <main className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -250,7 +248,7 @@ const Blog = () => {
           </CardContent>
         </Card>
       </main>
-    </div>
+    </Layout>
   );
 };
 

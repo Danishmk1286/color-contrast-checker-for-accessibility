@@ -60,10 +60,10 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
 
         {/* WCAG Results */}
         <div className="space-y-2">
-          {getPassBadge(result.aaNormal, 'AA', 'Small Text')}
-          {getPassBadge(result.aaLarge, 'AA', 'Large Text')}
-          {getPassBadge(result.aaaNormal, 'AAA', 'Small Text')}
-          {getPassBadge(result.aaaLarge, 'AAA', 'Large Text')}
+          {getPassBadge(result.aaNormal, 'AA', 'Normal Text (16px)')}
+          {getPassBadge(result.aaLarge, 'AA', 'Large Text (18px+)')}
+          {getPassBadge(result.aaaNormal, 'AAA', 'Normal Text (16px)')}
+          {getPassBadge(result.aaaLarge, 'AAA', 'Large Text (18px+)')}
         </div>
 
         {/* Guidelines */}
@@ -81,7 +81,7 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
             </div>
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            Large text: 18pt+ or 14pt+ bold
+            Large text: 18px+ (24px) or 14px+ bold (18.5px)
           </p>
         </div>
       </CardContent>

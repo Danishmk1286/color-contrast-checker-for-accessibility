@@ -1,5 +1,6 @@
 import { ArrowLeft, Code, Palette, Accessibility, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -33,9 +34,9 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <Layout>
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-16 z-10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/">
@@ -171,7 +172,7 @@ const About = () => {
           </CardContent>
         </Card>
       </main>
-    </div>
+    </Layout>
   );
 };
 

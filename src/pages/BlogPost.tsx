@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Header from '@/components/Header';
+import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, CalendarDays, Clock, User, Share } from 'lucide-react';
@@ -148,8 +148,7 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
+      <Layout>
         <main className="container mx-auto px-4 py-12 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Post Not Found</h1>
           <Link to="/blog">
@@ -159,14 +158,12 @@ const BlogPost = () => {
             </Button>
           </Link>
         </main>
-      </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
+    <Layout>
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Back Button */}
         <Link to="/blog" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors">
@@ -265,7 +262,7 @@ const BlogPost = () => {
           </div>
         </section>
       </main>
-    </div>
+    </Layout>
   );
 };
 
