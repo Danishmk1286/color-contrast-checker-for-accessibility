@@ -5,14 +5,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, Clock, ArrowRight, User, Heart, Github, Star, Share2 } from 'lucide-react';
-
 const Blog = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Understanding WCAG 2.1 Color Contrast Guidelines: A Complete Guide",
-      excerpt: "Learn everything you need to know about WCAG color contrast requirements, from basic AA compliance to advanced AAA standards. This comprehensive guide covers practical implementation strategies for designers and developers.",
-      content: `
+  const blogPosts = [{
+    id: 1,
+    title: "Understanding WCAG 2.1 Color Contrast Guidelines: A Complete Guide",
+    excerpt: "Learn everything you need to know about WCAG color contrast requirements, from basic AA compliance to advanced AAA standards. This comprehensive guide covers practical implementation strategies for designers and developers.",
+    content: `
         <div class="space-y-6">
           <p class="text-lg text-muted-foreground">Color contrast is one of the most fundamental aspects of web accessibility, yet it's often overlooked in the design process. Understanding WCAG 2.1 color contrast guidelines is essential for creating inclusive digital experiences.</p>
           
@@ -63,16 +61,15 @@ const Blog = () => {
           <p class="text-muted-foreground">By following WCAG guidelines and testing your color combinations regularly, you can create more accessible and inclusive digital experiences for all users.</p>
         </div>
       `,
-      author: "Danish Khan",
-      date: "2024-01-15",
-      readTime: "8 min read",
-      tags: ["WCAG", "Accessibility", "Design", "Guidelines"]
-    },
-    {
-      id: 2,
-      title: "Color Accessibility in Modern Web Design: Best Practices and Tools",
-      excerpt: "Discover the latest tools, techniques, and strategies for implementing accessible color schemes in modern web applications. From automated testing to design system integration.",
-      content: `
+    author: "Danish Khan",
+    date: "2024-01-15",
+    readTime: "8 min read",
+    tags: ["WCAG", "Accessibility", "Design", "Guidelines"]
+  }, {
+    id: 2,
+    title: "Color Accessibility in Modern Web Design: Best Practices and Tools",
+    excerpt: "Discover the latest tools, techniques, and strategies for implementing accessible color schemes in modern web applications. From automated testing to design system integration.",
+    content: `
         <div class="space-y-6">
           <p class="text-lg text-muted-foreground">In today's digital landscape, creating accessible color schemes is not just a legal requirement—it's a fundamental aspect of inclusive design that benefits all users.</p>
           
@@ -140,15 +137,12 @@ const Blog = () => {
           <p class="text-muted-foreground">By incorporating these practices and tools into your workflow, you'll create more inclusive digital experiences that work for everyone, regardless of their visual abilities.</p>
         </div>
       `,
-      author: "Danish Khan",
-      date: "2024-01-08",
-      readTime: "12 min read",
-      tags: ["Tools", "Design Systems", "Best Practices", "UX"]
-    }
-  ];
-
-  return (
-    <Layout>
+    author: "Danish Khan",
+    date: "2024-01-08",
+    readTime: "12 min read",
+    tags: ["Tools", "Design Systems", "Best Practices", "UX"]
+  }];
+  return <Layout>
       <main className="container mx-auto px-4 py-6 sm:py-8 md:py-12 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
@@ -162,8 +156,7 @@ const Blog = () => {
 
         {/* Blog Posts */}
         <div className="grid gap-6 sm:gap-8 md:gap-12">
-          {blogPosts.map((post, index) => (
-            <article key={post.id} className="group">
+          {blogPosts.map((post, index) => <article key={post.id} className="group">
               <Card className="border-border hover:shadow-lg transition-all duration-300">
                 <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
@@ -175,11 +168,11 @@ const Blog = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span className="text-xs sm:text-sm">{new Date(post.date).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'short', 
-                            day: 'numeric' 
-                          })}</span>
+                          <span className="text-xs sm:text-sm">{new Date(post.date).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })}</span>
                         </div>
                         <div className="hidden sm:flex items-center gap-2">
                           <Clock className="w-4 h-4" />
@@ -199,18 +192,12 @@ const Blog = () => {
                   
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mt-4">
                     <div className="flex flex-wrap gap-1 sm:gap-2">
-                      {post.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
+                      {post.tags.map(tag => <Badge key={tag} variant="secondary" className="text-xs">
                           {tag}
-                        </Badge>
-                      ))}
+                        </Badge>)}
                     </div>
                     
-                    <Button 
-                      variant="ghost" 
-                      className="gap-2 text-primary hover:text-primary-foreground hover:bg-primary w-full sm:w-auto justify-center sm:justify-start"
-                      asChild
-                    >
+                    <Button variant="ghost" className="gap-2 text-primary hover:text-primary-foreground hover:bg-primary w-full sm:w-auto justify-center sm:justify-start" asChild>
                       <Link to={`/blog/${post.id}`}>
                         Read More
                         <ArrowRight className="w-4 h-4" />
@@ -219,58 +206,14 @@ const Blog = () => {
                   </div>
                 </CardHeader>
               </Card>
-            </article>
-          ))}
+            </article>)}
         </div>
 
         {/* GitHub Feedback Section */}
         <div className="mt-8 sm:mt-12 md:mt-16">
-          <div className="text-center p-4 sm:p-6 md:p-8 bg-primary/5 rounded-lg border border-primary/20">
-            <div className="flex justify-center mb-3 sm:mb-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary animate-pulse" />
-              </div>
-            </div>
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-2">
-              Enjoying our Color Contrast Checker? ⭐
-            </h3>
-            <p className="text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base">
-              Help others discover this accessibility tool by starring our GitHub repository and sharing your experience. Your support helps us build better tools for everyone!
-            </p>
-            <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 justify-center items-center">
-              <Button 
-                onClick={() => window.open('https://github.com/danishmk1286/color-contrast-checker-for-accessibility', '_blank')}
-                className="gap-2 bg-[#24292e] hover:bg-[#24292e]/90 text-white w-full sm:w-auto"
-                size="default"
-              >
-                <Github className="w-4 h-4" />
-                <Star className="w-4 h-4" />
-                Star on GitHub
-              </Button>
-              <Button 
-                onClick={() => {
-                  const url = window.location.href;
-                  const text = 'Just used this amazing WCAG Color Contrast Checker! 🎨 Perfect for creating accessible designs. Highly recommend! ⭐';
-                  if (navigator.share) {
-                    navigator.share({ title: 'Color Contrast Checker Review', text, url });
-                  } else {
-                    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-                    window.open(shareUrl, '_blank');
-                  }
-                }}
-                variant="outline"
-                size="default"
-                className="gap-2 w-full sm:w-auto"
-              >
-                <Share2 className="w-4 h-4" />
-                Share Your Review
-              </Button>
-            </div>
-          </div>
+          
         </div>
       </main>
-    </Layout>
-  );
+    </Layout>;
 };
-
 export default Blog;
