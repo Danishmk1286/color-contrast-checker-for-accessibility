@@ -168,7 +168,7 @@ const Blog = () => {
                 <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground mb-3">
+                      <div className="flex items-center gap-3 sm:gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-2">
                           <User className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{post.author}</span>
@@ -181,9 +181,9 @@ const Blog = () => {
                             day: 'numeric' 
                           })}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span className="text-xs sm:text-sm">{post.readTime}</span>
+                        <div className="hidden sm:flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          <span>{post.readTime}</span>
                         </div>
                       </div>
                       
