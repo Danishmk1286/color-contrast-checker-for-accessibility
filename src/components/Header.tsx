@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Palette, BookOpen, Info, Share, Github } from 'lucide-react';
+import { Home, BookOpen, Info, Share } from 'lucide-react';
 
 const Header = () => {
   return (
@@ -11,28 +11,37 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Palette className="w-5 h-5 text-primary-foreground" />
+            <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+              <span className="text-sm font-bold text-white">W</span>
             </div>
             <span className="text-lg font-semibold text-foreground">Color Contrast Checker</span>
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Checker
-            </Link>
-            <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Blog
-            </Link>
-            <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              About
-            </Link>
+          <nav className="hidden md:flex items-center gap-2">
+            <Button variant="ghost" asChild className="gap-2 bg-green-600 text-white hover:bg-green-700">
+              <Link to="/">
+                <Home className="w-4 h-4" />
+                Checker
+              </Link>
+            </Button>
+            <Button variant="ghost" asChild className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted">
+              <Link to="/blog">
+                <BookOpen className="w-4 h-4" />
+                Blog
+              </Link>
+            </Button>
+            <Button variant="ghost" asChild className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted">
+              <Link to="/about">
+                <Info className="w-4 h-4" />
+                About
+              </Link>
+            </Button>
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="gap-2">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted">
               <Share className="w-4 h-4" />
               Share
             </Button>
