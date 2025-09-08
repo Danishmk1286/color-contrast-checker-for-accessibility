@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -7,6 +7,31 @@ import { Home, BookOpen, Info, Share, Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Helper function to check if a path is active
+  const isActivePath = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  // Helper function to get navigation link classes
+  const getNavLinkClasses = (path: string) => {
+    const baseClasses = "gap-2 transition-all duration-200";
+    return isActivePath(path)
+      ? `${baseClasses} bg-primary text-primary-foreground hover:bg-primary/90`
+      : `${baseClasses} text-muted-foreground hover:text-foreground hover:bg-muted`;
+  };
+
+  // Helper function to get mobile navigation link classes
+  const getMobileNavLinkClasses = (path: string) => {
+    const baseClasses = "justify-start gap-3 h-12 text-base transition-all duration-200";
+    return isActivePath(path)
+      ? `${baseClasses} bg-primary text-primary-foreground hover:bg-primary/90`
+      : `${baseClasses} text-muted-foreground hover:text-foreground hover:bg-muted`;
+  };
 
   const handleShareClick = async () => {
     const url = window.location.href;
@@ -48,30 +73,30 @@ const Header = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-            <Button variant="ghost" asChild className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link to="/">
-                <Home className="w-4 h-4" />
-                <span className="hidden lg:inline">Home</span>
-              </Link>
-            </Button>
-            <Button variant="ghost" asChild className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted">
-              <Link to="/blog">
-                <BookOpen className="w-4 h-4" />
-                <span className="hidden lg:inline">Blog</span>
-              </Link>
-            </Button>
-            <Button variant="ghost" asChild className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted">
-              <Link to="/about">
-                <Info className="w-4 h-4" />
-                <span className="hidden lg:inline">About</span>
-              </Link>
-            </Button>
-          </nav>
-
-          {/* Desktop Actions & Mobile Menu */}
+          {/* Right side - Navigation and Actions */}
           <div className="flex items-center gap-1 md:gap-2">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-1 lg:gap-2 mr-2">
+              <Button variant="ghost" asChild className={getNavLinkClasses('/')}>
+                <Link to="/">
+                  <Home className="w-4 h-4" />
+                  <span className="hidden lg:inline">Home</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild className={getNavLinkClasses('/blog')}>
+                <Link to="/blog">
+                  <BookOpen className="w-4 h-4" />
+                  <span className="hidden lg:inline">Blog</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild className={getNavLinkClasses('/about')}>
+                <Link to="/about">
+                  <Info className="w-4 h-4" />
+                  <span className="hidden lg:inline">About</span>
+                </Link>
+              </Button>
+            </nav>
+
             {/* Desktop Share Button */}
             <Button 
               variant="ghost" 
@@ -101,7 +126,7 @@ const Header = () => {
                       <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center">
                         <span className="text-xs font-bold text-primary-foreground">W</span>
                       </div>
-                      <span className="text-sm font-semibold">Menu</span>
+                      <span className="text-sm font-semibold">Navigation</span>
                     </div>
                   </div>
 
@@ -110,7 +135,7 @@ const Header = () => {
                     <Button 
                       variant="ghost" 
                       asChild 
-                      className="justify-start gap-3 h-12 text-base"
+                      className={getMobileNavLinkClasses('/')}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <Link to="/">
@@ -121,7 +146,7 @@ const Header = () => {
                     <Button 
                       variant="ghost" 
                       asChild 
-                      className="justify-start gap-3 h-12 text-base"
+                      className={getMobileNavLinkClasses('/blog')}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <Link to="/blog">
@@ -132,7 +157,7 @@ const Header = () => {
                     <Button 
                       variant="ghost" 
                       asChild 
-                      className="justify-start gap-3 h-12 text-base"
+                      className={getMobileNavLinkClasses('/about')}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <Link to="/about">
@@ -146,7 +171,7 @@ const Header = () => {
                         handleShareClick();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="justify-start gap-3 h-12 text-base"
+                      className="justify-start gap-3 h-12 text-base text-muted-foreground hover:text-foreground hover:bg-muted"
                     >
                       <Share className="w-5 h-5" />
                       Share Tool
