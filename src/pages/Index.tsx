@@ -109,11 +109,11 @@ const Index = () => {
       </section>
 
       {/* Main Tool Section */}
-      <section className="py-8 md:py-12 px-4">
+      <section className="py-6 md:py-8 lg:py-12 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-10 gap-6 lg:gap-8">
-            {/* Left Sidebar - Controls */}
-            <div className="lg:col-span-4 space-y-4 lg:sticky lg:top-4 lg:self-start lg:max-h-screen lg:overflow-y-auto">
+          <div className="grid gap-6 lg:grid-cols-10 lg:gap-8">
+            {/* Controls Section - Full width on mobile, sidebar on desktop */}
+            <div className="lg:col-span-4 space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
               <ColorSelector 
                 textColor={textColor} 
                 backgroundColor={backgroundColor} 
@@ -124,9 +124,15 @@ const Index = () => {
               {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
 
-            {/* Right Side - Live Preview */}
+            {/* Live Preview Section */}
             <div className="lg:col-span-6">
-              <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
+              <div className="sticky top-4 lg:top-20">
+                <div className="mb-4 lg:hidden">
+                  <h2 className="text-lg font-semibold text-foreground">Live Preview</h2>
+                  <p className="text-sm text-muted-foreground">See how your colors look in real interfaces</p>
+                </div>
+                <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
+              </div>
             </div>
           </div>
         </div>
@@ -174,37 +180,37 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tool Suite Section */}
-      <section className="py-16 px-4 bg-card/30">
+      {/* Tool Suite Section - Mobile Optimized */}
+      <section className="py-12 md:py-16 px-4 bg-card/30">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
               Discover Our Complete Color Tool Suite
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
               Beyond just a color contrast checker, we offer comprehensive suite of color tools designed for designers and developers who prioritize accessibility and beautiful design.
             </p>
           </div>
           
-          <Card className="p-8 text-center border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:shadow-lg transition-all duration-300">
+          <Card className="p-6 md:p-8 text-center border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-center mb-6">
-              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
-                <Palette className="w-8 h-8 text-primary" />
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-primary/20 rounded-full flex items-center justify-center">
+                <Palette className="w-6 h-6 md:w-8 md:h-8 text-primary" />
               </div>
             </div>
-            <h3 className="text-2xl font-bold text-foreground mb-4">
+            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">
               Tints and Shades Generator
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto text-sm md:text-base">
               Create perfect tints, shades, and tones from any base color. Generate harmonious color variations that maintain accessibility standards throughout your design system. Perfect for building cohesive color palettes.
             </p>
-            <div className="flex flex-wrap justify-center gap-3 mb-6">
-              <Badge variant="secondary">Color Variations</Badge>
-              <Badge variant="secondary">Accessibility Focused</Badge>
-              <Badge variant="secondary">Design System Ready</Badge>
-              <Badge variant="secondary">Export Options</Badge>
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6">
+              <Badge variant="secondary" className="text-xs md:text-sm">Color Variations</Badge>
+              <Badge variant="secondary" className="text-xs md:text-sm">Accessibility Focused</Badge>
+              <Badge variant="secondary" className="text-xs md:text-sm">Design System Ready</Badge>
+              <Badge variant="secondary" className="text-xs md:text-sm">Export Options</Badge>
             </div>
-            <Button className="gap-2" size="lg">
+            <Button className="gap-2 w-full sm:w-auto" size="lg">
               Try Tints & Shades Generator
               <CheckCircle className="w-4 h-4" />
             </Button>
