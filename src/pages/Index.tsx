@@ -70,7 +70,7 @@ const Index = () => {
   }, [textColor, backgroundColor]);
   return <Layout>
       {/* Hero Section - Mobile centered */}
-      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-10 sm:py-8 md:py-[34px]">
+      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-10 sm:py-8 md:py-[52px]">
         <div className="w-full md:container md:mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 sm:mb-6">
             <Zap className="w-4 h-4" />
@@ -108,7 +108,7 @@ const Index = () => {
       </section>
 
       {/* Main Tool Section - Balanced mobile spacing, desktop sticky sidebar */}
-      <section className="py-6 sm:py-6 md:py-8 lg:py-12 px-0 md:px-4">
+      <section className="py-6 sm:py-6 md:py-8 px-0 md:px-4 lg:py-0">
         <div className="w-full md:container md:mx-auto md:max-w-7xl">
           <div className="grid gap-4 sm:gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
             {/* Controls Section - Desktop no scroll, mobile centered */}
@@ -133,7 +133,7 @@ const Index = () => {
       </section>
 
       {/* Why Use Section - Mobile centered */}
-      <section className="py-8 md:py-12 lg:py-16 px-4 bg-card/30">
+      <section className="py-8 md:py-12 px-4 bg-card/30 my-[20px] lg:py-[68px]">
         <div className="container mx-auto max-w-6xl text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Why Use Our Color Contrast Checker & Color Palette Generator?
@@ -175,7 +175,7 @@ const Index = () => {
       </section>
 
       {/* Tool Suite Section - Mobile centered, balanced spacing */}
-      <section className="py-8 md:py-12 lg:py-16 px-4 bg-card/30">
+      <section className="py-8 md:py-12 px-4 bg-card/30 lg:py-[28px]">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
@@ -214,7 +214,7 @@ const Index = () => {
 
       {/* Professional Features - Mobile centered, consistent spacing */}
       <section className="py-8 md:py-12 lg:py-16 px-4 bg-card/30">
-        <div className="container mx-auto max-w-6xl">
+        <div className="container mx-auto max-w-6xl py-0">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-8 md:mb-12">
             Professional Color Palette Generator Features
           </h2>
