@@ -8,16 +8,22 @@ import { Home, BookOpen, Info, Share, Menu, X } from 'lucide-react';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleShareClick = () => {
+  const handleShareClick = async () => {
     const url = window.location.href;
     const text = 'Check out this amazing WCAG Color Contrast Checker! 🎨';
     
     if (navigator.share) {
-      navigator.share({
-        title: 'Color Contrast Checker',
-        text: text,
-        url: url
-      });
+      try {
+        await navigator.share({
+          title: 'Color Contrast Checker',
+          text: text,
+          url: url
+        });
+      } catch (error) {
+        // If share fails (permission denied or not supported), fallback to Twitter
+        const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank');
+      }
     } else {
       // Fallback to Twitter
       const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;

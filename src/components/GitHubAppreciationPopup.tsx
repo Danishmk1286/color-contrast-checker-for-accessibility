@@ -15,7 +15,7 @@ const GitHubAppreciationPopup: React.FC = () => {
       const timer = setTimeout(() => {
         setIsVisible(true);
         localStorage.setItem('github-appreciation-shown', 'true');
-      }, 30000); // 30 seconds
+      }, 8000); // 8 seconds for faster loading
 
       return () => clearTimeout(timer);
     }
@@ -44,22 +44,27 @@ const GitHubAppreciationPopup: React.FC = () => {
     
     let shareUrl = '';
     
-    switch (platform) {
-      case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-        break;
-      case 'linkedin':
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-        break;
-      case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-        break;
-      default:
-        return;
+    try {
+      switch (platform) {
+        case 'twitter':
+          shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+          break;
+        case 'linkedin':
+          shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+          break;
+        case 'facebook':
+          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+          break;
+        default:
+          return;
+      }
+      
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      setIsVisible(false);
+    } catch (error) {
+      console.error('Share failed:', error);
+      // Keep popup open if share fails
     }
-    
-    window.open(shareUrl, '_blank', 'width=600,height=400');
-    setIsVisible(false);
   };
 
   return (
