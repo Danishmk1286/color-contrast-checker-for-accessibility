@@ -17,8 +17,8 @@ interface ContrastResult {
 }
 
 const Index = () => {
-  const [textColor, setTextColor] = useState('#000000');
-  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
+  const [textColor, setTextColor] = useState('#ffffff');
+  const [backgroundColor, setBackgroundColor] = useState('#4a4d4a');
   const [contrastResult, setContrastResult] = useState<ContrastResult | null>(null);
 
   // Convert hex to RGB
@@ -119,7 +119,7 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-10 gap-8">
             {/* Left Sidebar - Controls */}
-            <div className="lg:col-span-3 space-y-6 sticky top-24 self-start">
+            <div className="lg:col-span-4 space-y-6 sticky top-24 self-start">
               <div className="bg-sidebar-background/95 backdrop-blur-sm border-2 border-sidebar-border rounded-lg p-1 shadow-lg">
                 <ColorSelector
                   textColor={textColor}
@@ -135,7 +135,7 @@ const Index = () => {
             </div>
 
             {/* Right Side - Live Preview */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-6">
               <LivePreview 
                 textColor={textColor}
                 backgroundColor={backgroundColor}
