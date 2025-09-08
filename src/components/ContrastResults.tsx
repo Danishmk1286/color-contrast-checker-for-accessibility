@@ -22,14 +22,19 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
       <XCircle className="w-4 h-4 text-destructive" />;
   };
 
-  const getPassBadge = (passed: boolean, label: string) => {
+  const getPassBadge = (passed: boolean, label: string, size: string) => {
     return (
       <div className="flex items-center justify-between p-3 rounded-lg bg-sidebar-accent">
-        <span className="text-sm text-sidebar-foreground">{label}</span>
+        <div className="flex items-center gap-3">
+          <div className="bg-sidebar-background px-2 py-1 rounded text-xs font-medium text-sidebar-foreground">
+            {label}
+          </div>
+          <span className="text-sm text-sidebar-foreground">{size}</span>
+        </div>
         <div className="flex items-center gap-2">
           {getPassIcon(passed)}
           <span className={`text-sm font-medium ${passed ? 'text-primary' : 'text-destructive'}`}>
-            {passed ? 'Passes' : 'Fails'}
+            {passed ? 'Readable' : 'Not Readable'}
           </span>
         </div>
       </div>
@@ -37,54 +42,82 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
   };
 
   return (
-    <Card className="border-sidebar-border">
-      <CardHeader>
-        <CardTitle className="text-sidebar-foreground flex items-center gap-2">
-          <TrendingUp className="w-4 h-4" />
-          Color Contrast Results
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Contrast Ratio Display */}
-        <div className="text-center py-4">
-          <div className="text-4xl font-bold text-primary mb-2">
-            {result.ratio.toFixed(2)}
-          </div>
-          <p className="text-sidebar-foreground text-sm">Contrast Ratio</p>
-        </div>
+    <div className="space-y-6">
+      <div className="bg-sidebar-background/95 backdrop-blur-sm border-2 border-sidebar-border rounded-lg p-1 shadow-lg">
+        <Card className="border-sidebar-border">
+          <CardHeader>
+            <CardTitle className="text-sidebar-foreground flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Color Contrast Results
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Contrast Ratio Display */}
+            <div className="text-center py-4">
+              <div className="text-sm text-sidebar-foreground mb-2">Contrast</div>
+              <div className="text-5xl font-bold text-sidebar-foreground mb-1">
+                {result.ratio.toFixed(2)}
+              </div>
+            </div>
 
-        {/* WCAG AA Results */}
-        <div className="space-y-3">
-          <h3 className="text-sidebar-foreground font-medium text-sm">WCAG AA Compliance</h3>
-          <div className="space-y-2">
-            {getPassBadge(result.aaLarge, 'Large Text')}
-            {getPassBadge(result.aaNormal, 'Normal Text')}
-          </div>
-        </div>
+            {/* WCAG Results */}
+            <div className="space-y-2">
+              {getPassBadge(result.aaNormal, 'AA', 'Small Text')}
+              {getPassBadge(result.aaLarge, 'AA', 'Large Text')}
+              {getPassBadge(result.aaaNormal, 'AAA', 'Small Text')}
+              {getPassBadge(result.aaaLarge, 'AAA', 'Large Text')}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* WCAG AAA Results */}
-        <div className="space-y-3">
-          <h3 className="text-sidebar-foreground font-medium text-sm">WCAG AAA Compliance</h3>
-          <div className="space-y-2">
-            {getPassBadge(result.aaaLarge, 'Large Text')}
-            {getPassBadge(result.aaaNormal, 'Normal Text')}
-          </div>
-        </div>
+      <div className="bg-sidebar-background/95 backdrop-blur-sm border-2 border-sidebar-border rounded-lg p-1 shadow-lg">
+        <Card className="border-sidebar-border">
+          <CardHeader>
+            <CardTitle className="text-sidebar-foreground flex items-center gap-2">
+              <CheckCircle className="w-4 h-4" />
+              WCAG Color Contrast Guidelines
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Level AA Section */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="bg-primary px-2 py-1 rounded text-xs font-medium text-primary-foreground">
+                  Level AA
+                </div>
+                <span className="text-sm text-sidebar-foreground font-medium">Minimum Standard</span>
+              </div>
+              <div className="space-y-2 text-sm text-sidebar-foreground">
+                <div>• Normal text: <span className="font-medium text-primary">4.5:1</span></div>
+                <div>• Large text: <span className="font-medium text-primary">3:1</span></div>
+              </div>
+            </div>
 
-        {/* Guidelines */}
-        <div className="p-4 bg-sidebar-accent rounded-lg">
-          <h4 className="text-sidebar-foreground font-medium text-sm mb-2">WCAG Color Contrast Guidelines</h4>
-          <div className="space-y-1 text-xs text-sidebar-foreground opacity-80">
-            <div>• Level AA: Minimum Standard</div>
-            <div>• Large text ≥3:1 contrast</div>
-            <div>• Normal text ≥4.5:1 contrast</div>
-            <div>• Level AAA: Enhanced Standard</div>
-            <div>• Large text ≥4.5:1 contrast</div>
-            <div>• Normal text ≥7:1 contrast</div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+            {/* Level AAA Section */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="bg-primary px-2 py-1 rounded text-xs font-medium text-primary-foreground">
+                  Level AAA
+                </div>
+                <span className="text-sm text-sidebar-foreground font-medium">Enhanced Standard</span>
+              </div>
+              <div className="space-y-2 text-sm text-sidebar-foreground">
+                <div>• Normal text: <span className="font-medium text-primary">7:1</span></div>
+                <div>• Large text: <span className="font-medium text-primary">4.5:1</span></div>
+              </div>
+            </div>
+
+            {/* Definition */}
+            <div className="pt-4 border-t border-sidebar-border">
+              <p className="text-xs text-sidebar-foreground opacity-80">
+                Large text is defined as 18pt+ or 14pt+ when bold.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 };
 

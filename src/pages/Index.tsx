@@ -130,9 +130,7 @@ const Index = () => {
               </div>
               
               {contrastResult && (
-                <div className="bg-sidebar-background/95 backdrop-blur-sm border-2 border-sidebar-border rounded-lg p-1 shadow-lg">
-                  <ContrastResults result={contrastResult} />
-                </div>
+                <ContrastResults result={contrastResult} />
               )}
             </div>
 
