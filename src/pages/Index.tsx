@@ -117,25 +117,26 @@ const Index = () => {
       {/* Main Tool Section */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-10 gap-8">
-            {/* Left Sidebar - Controls */}
-            <div className="lg:col-span-3 space-y-6 sticky top-24 self-start">
-              <div className="bg-sidebar-background/95 backdrop-blur-sm border-2 border-sidebar-border rounded-lg p-1 shadow-lg">
-                <ColorSelector
-                  textColor={textColor}
-                  backgroundColor={backgroundColor}
-                  onTextColorChange={setTextColor}
-                  onBackgroundColorChange={setBackgroundColor}
-                />
-              </div>
-              
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            {/* Color Controls */}
+            <div className="space-y-6">
+              <ColorSelector
+                textColor={textColor}
+                backgroundColor={backgroundColor}
+                onTextColorChange={setTextColor}
+                onBackgroundColorChange={setBackgroundColor}
+              />
+            </div>
+
+            {/* Contrast Results */}
+            <div className="space-y-6">
               {contrastResult && (
                 <ContrastResults result={contrastResult} />
               )}
             </div>
 
-            {/* Right Side - Live Preview */}
-            <div className="lg:col-span-7">
+            {/* Live Preview */}
+            <div className="space-y-6">
               <LivePreview 
                 textColor={textColor}
                 backgroundColor={backgroundColor}
