@@ -143,7 +143,7 @@ const Blog = () => {
     tags: ["Tools", "Design Systems", "Best Practices", "UX"]
   }];
   return <Layout>
-      <main className="container mx-auto sm:py-8 md:py-12 max-w-6xl my-0 px-[17px] py-0">
+      <main className="container mx-auto sm:py-8 md:py-12 max-w-6xl px-[17px] py-0 my-[7px]">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
