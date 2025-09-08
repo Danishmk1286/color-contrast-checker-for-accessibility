@@ -12,22 +12,10 @@ const LivePreview: React.FC<LivePreviewProps> = ({
 }) => {
   return <div className="space-y-6">
       {/* Preview Header */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-foreground">Live Color Contrast Preview</h2>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="gap-2">
-            <Monitor className="w-4 h-4" />
-            Desktop
-          </Button>
-          <Button variant="ghost" size="sm" className="gap-2">
-            <Smartphone className="w-4 h-4" />
-            Mobile
-          </Button>
-        </div>
-      </div>
+      
 
       {/* Live Preview */}
-      
+      <div className="text-sm text-muted-foreground mb-4">Live Preview</div>
       
       {/* Mock Website Preview */}
       <Card className="border-2 border-border overflow-hidden" style={{
