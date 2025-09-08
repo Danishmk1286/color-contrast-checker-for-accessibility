@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Zap, Shield, Eye, Palette, CheckCircle, Users, TrendingUp, Award } from 'lucide-react';
-
 interface ContrastResult {
   ratio: number;
   aaLarge: boolean;
@@ -15,14 +14,17 @@ interface ContrastResult {
   aaaLarge: boolean;
   aaaNormal: boolean;
 }
-
 const Index = () => {
   const [textColor, setTextColor] = useState('#ffffff');
   const [backgroundColor, setBackgroundColor] = useState('#4a4d4a');
   const [contrastResult, setContrastResult] = useState<ContrastResult | null>(null);
 
   // Convert hex to RGB
-  const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
+  const hexToRgb = (hex: string): {
+    r: number;
+    g: number;
+    b: number;
+  } | null => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
       r: parseInt(result[1], 16),
@@ -44,15 +46,11 @@ const Index = () => {
   const getContrastRatio = (color1: string, color2: string): number => {
     const rgb1 = hexToRgb(color1);
     const rgb2 = hexToRgb(color2);
-    
     if (!rgb1 || !rgb2) return 0;
-    
     const lum1 = getLuminance(rgb1.r, rgb1.g, rgb1.b);
     const lum2 = getLuminance(rgb2.r, rgb2.g, rgb2.b);
-    
     const brightest = Math.max(lum1, lum2);
     const darkest = Math.min(lum1, lum2);
-    
     return (brightest + 0.05) / (darkest + 0.05);
   };
 
@@ -66,18 +64,15 @@ const Index = () => {
       aaaNormal: ratio >= 7
     };
   };
-
   useEffect(() => {
     const ratio = getContrastRatio(textColor, backgroundColor);
     setContrastResult(checkCompliance(ratio));
   }, [textColor, backgroundColor]);
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-background to-background/50 py-16 px-4">
+      <section className="bg-gradient-to-b from-background to-background/50 px-4 py-[30px]">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Zap className="w-4 h-4" />
@@ -120,24 +115,14 @@ const Index = () => {
           <div className="grid lg:grid-cols-10 gap-8">
             {/* Left Sidebar - Controls */}
             <div className="lg:col-span-4 space-y-4 sticky top-4 self-start max-h-screen overflow-y-auto">
-              <ColorSelector
-                textColor={textColor}
-                backgroundColor={backgroundColor}
-                onTextColorChange={setTextColor}
-                onBackgroundColorChange={setBackgroundColor}
-              />
+              <ColorSelector textColor={textColor} backgroundColor={backgroundColor} onTextColorChange={setTextColor} onBackgroundColorChange={setBackgroundColor} />
               
-              {contrastResult && (
-                <ContrastResults result={contrastResult} />
-              )}
+              {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
 
             {/* Right Side - Live Preview */}
             <div className="lg:col-span-6">
-              <LivePreview 
-                textColor={textColor}
-                backgroundColor={backgroundColor}
-              />
+              <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
             </div>
           </div>
         </div>
@@ -154,29 +139,23 @@ const Index = () => {
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: <Shield className="w-8 h-8 text-primary" />,
-                title: "WCAG Accessibility Compliance",
-                description: "Ensure full compliance with WCAG guidelines and meet industry accessibility standards using our precision color contrast checker and fully compliant evaluations."
-              },
-              {
-                icon: <Award className="w-8 h-8 text-primary" />,
-                title: "Legal Protection",
-                description: "Reduce legal risk and ensure regulatory compliance. Our comprehensive accessibility testing helps protect against accessibility-related lawsuits."
-              },
-              {
-                icon: <Users className="w-8 h-8 text-primary" />,
-                title: "Better User Experience",
-                description: "Improve readability and usability for all users including those with visual impairments. Make your content usable and understandable."
-              },
-              {
-                icon: <TrendingUp className="w-8 h-8 text-primary" />,
-                title: "SEO Benefits",
-                description: "Improve your search engine ranking with accessible design. Search engines favor sites that meet accessibility standards and rankings when your site easily readable and usable."
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="text-center p-6 border-border hover:shadow-lg transition-all duration-300">
+            {[{
+            icon: <Shield className="w-8 h-8 text-primary" />,
+            title: "WCAG Accessibility Compliance",
+            description: "Ensure full compliance with WCAG guidelines and meet industry accessibility standards using our precision color contrast checker and fully compliant evaluations."
+          }, {
+            icon: <Award className="w-8 h-8 text-primary" />,
+            title: "Legal Protection",
+            description: "Reduce legal risk and ensure regulatory compliance. Our comprehensive accessibility testing helps protect against accessibility-related lawsuits."
+          }, {
+            icon: <Users className="w-8 h-8 text-primary" />,
+            title: "Better User Experience",
+            description: "Improve readability and usability for all users including those with visual impairments. Make your content usable and understandable."
+          }, {
+            icon: <TrendingUp className="w-8 h-8 text-primary" />,
+            title: "SEO Benefits",
+            description: "Improve your search engine ranking with accessible design. Search engines favor sites that meet accessibility standards and rankings when your site easily readable and usable."
+          }].map((feature, index) => <Card key={index} className="text-center p-6 border-border hover:shadow-lg transition-all duration-300">
                 <div className="mb-4 flex justify-center">
                   {feature.icon}
                 </div>
@@ -186,8 +165,7 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -241,24 +219,19 @@ const Index = () => {
           </p>
           
           <div className="grid lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Real-time Testing",
-                description: "Instant feedback with comprehensive platform against WCAG standards as you adjust colors.",
-                features: ["Live contrast ratios", "Multiple text sizes", "Different use contexts"]
-              },
-              {
-                title: "Multiple Text Sizes",
-                description: "Test colors against different text sizes and weights per real website scenarios.",
-                features: ["Large text testing", "Normal text analysis", "Small text scenarios"]
-              },
-              {
-                title: "Visual Interface Preview",
-                description: "See exactly how your color combinations look in context before deployment.",
-                features: ["Component previews", "Card interfaces", "Form elements"]
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="p-6">
+            {[{
+            title: "Real-time Testing",
+            description: "Instant feedback with comprehensive platform against WCAG standards as you adjust colors.",
+            features: ["Live contrast ratios", "Multiple text sizes", "Different use contexts"]
+          }, {
+            title: "Multiple Text Sizes",
+            description: "Test colors against different text sizes and weights per real website scenarios.",
+            features: ["Large text testing", "Normal text analysis", "Small text scenarios"]
+          }, {
+            title: "Visual Interface Preview",
+            description: "See exactly how your color combinations look in context before deployment.",
+            features: ["Component previews", "Card interfaces", "Form elements"]
+          }].map((feature, index) => <Card key={index} className="p-6">
                 <h3 className="text-xl font-semibold text-foreground mb-3">
                   {feature.title}
                 </h3>
@@ -266,15 +239,12 @@ const Index = () => {
                   {feature.description}
                 </p>
                 <ul className="space-y-2">
-                  {feature.features.map((item, itemIndex) => (
-                    <li key={itemIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  {feature.features.map((item, itemIndex) => <li key={itemIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
                       <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
                       {item}
-                    </li>
-                  ))}
+                    </li>)}
                 </ul>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -309,22 +279,12 @@ const Index = () => {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>Made with ❤️ by</li>
                 <li>
-                  <a 
-                    href="https://www.linkedin.com/in/danishmk1286/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
-                  >
+                  <a href="https://www.linkedin.com/in/danishmk1286/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                     Danish MK
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href="https://github.com/danishmk1286" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
-                  >
+                  <a href="https://github.com/danishmk1286" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                     GitHub
                   </a>
                 </li>
@@ -340,8 +300,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
