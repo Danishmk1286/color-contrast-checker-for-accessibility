@@ -19,7 +19,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
   onBackgroundColorChange,
 }) => {
   return (
-    <Card className="bg-sidebar-background border-sidebar-border">
+    <Card className="border-sidebar-border">
       <CardHeader>
         <CardTitle className="text-sidebar-foreground flex items-center gap-2">
           <Palette className="w-4 h-4" />

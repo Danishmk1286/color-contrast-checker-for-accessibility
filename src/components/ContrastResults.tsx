@@ -37,7 +37,7 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
   };
 
   return (
-    <Card className="bg-sidebar-background border-sidebar-border">
+    <Card className="border-sidebar-border">
       <CardHeader>
         <CardTitle className="text-sidebar-foreground flex items-center gap-2">
           <TrendingUp className="w-4 h-4" />
