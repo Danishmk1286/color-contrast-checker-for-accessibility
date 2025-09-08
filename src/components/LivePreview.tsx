@@ -1,33 +1,30 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
 interface LivePreviewProps {
   textColor: string;
   backgroundColor: string;
 }
-
 const LivePreview: React.FC<LivePreviewProps> = ({
   textColor,
   backgroundColor
 }) => {
-  return (
-    <div>
-      <div className="text-sm text-muted-foreground mb-4">Live Preview</div>
+  return <div>
+      
       
       {/* Comprehensive Preview */}
       <Card className="border-2 border-border overflow-hidden" style={{
+      backgroundColor,
+      color: textColor
+    }}>
+        <div className="p-6 space-y-6" style={{
         backgroundColor,
         color: textColor
       }}>
-        <div className="p-6 space-y-6" style={{
-          backgroundColor,
-          color: textColor
-        }}>
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b" style={{
-            borderColor: textColor + '20'
-          }}>
+          borderColor: textColor + '20'
+        }}>
             <div className="flex items-center gap-3">
               <div className="text-lg font-bold">Your Brand</div>
             </div>
@@ -56,10 +53,10 @@ const LivePreview: React.FC<LivePreviewProps> = ({
               </p>
             </div>
             <Button className="px-6 py-2 rounded-md font-medium" style={{
-              backgroundColor: textColor,
-              color: backgroundColor,
-              border: `1px solid ${textColor}`
-            }}>
+            backgroundColor: textColor,
+            color: backgroundColor,
+            border: `1px solid ${textColor}`
+          }}>
               Get Started Button
             </Button>
           </div>
@@ -67,9 +64,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({
           {/* Content Sections */}
           <div className="grid md:grid-cols-2 gap-6">
             <Card className="p-4" style={{
-              backgroundColor: textColor + '10',
-              color: textColor
-            }}>
+            backgroundColor: textColor + '10',
+            color: textColor
+          }}>
               <h3 className="font-semibold mb-2">Card Title</h3>
               <p className="text-sm opacity-80">
                 More content with text readability in 
@@ -79,9 +76,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({
             </Card>
 
             <Card className="p-4" style={{
-              backgroundColor: textColor + '10',
-              color: textColor
-            }}>
+            backgroundColor: textColor + '10',
+            color: textColor
+          }}>
               <h3 className="font-semibold mb-2">Another Card</h3>
               <p className="text-sm opacity-80">
                 Testing readability across various 
@@ -97,32 +94,32 @@ const LivePreview: React.FC<LivePreviewProps> = ({
             <div className="space-y-3">
               <label className="block text-sm font-medium">Input Label</label>
               <div className="w-full p-3 rounded border text-sm" style={{
-                borderColor: textColor + '40',
-                backgroundColor: backgroundColor,
-                color: textColor
-              }}>
+              borderColor: textColor + '40',
+              backgroundColor: backgroundColor,
+              color: textColor
+            }}>
                 Placeholder text with descriptive text
               </div>
               
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 border rounded" style={{
-                  borderColor: textColor + '60'
-                }} />
+                borderColor: textColor + '60'
+              }} />
                 <span className="text-sm">Checkbox with descriptive text</span>
               </div>
               
               <div className="flex gap-3">
                 <Button className="px-4 py-2 rounded text-sm" style={{
-                  backgroundColor: textColor + '20',
-                  color: textColor,
-                  border: `1px solid ${textColor + '40'}`
-                }}>
+                backgroundColor: textColor + '20',
+                color: textColor,
+                border: `1px solid ${textColor + '40'}`
+              }}>
                   Secondary Button
                 </Button>
                 <Button className="px-4 py-2 rounded text-sm" style={{
-                  backgroundColor: textColor,
-                  color: backgroundColor
-                }}>
+                backgroundColor: textColor,
+                color: backgroundColor
+              }}>
                   Primary Button
                 </Button>
               </div>
@@ -130,8 +127,6 @@ const LivePreview: React.FC<LivePreviewProps> = ({
           </div>
         </div>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default LivePreview;
