@@ -27,22 +27,6 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Color Swap Button */}
-        <div className="flex justify-center">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              onTextColorChange(backgroundColor);
-              onBackgroundColorChange(textColor);
-            }}
-            className="flex items-center gap-2"
-          >
-            <ArrowRightLeft className="w-4 h-4" />
-            Swap Colors
-          </Button>
-        </div>
-
         {/* Text Color */}
         <div className="space-y-3">
           <Label className="text-foreground text-sm font-medium">Text Color</Label>
@@ -76,6 +60,22 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
               </Button>
             </div>
           </div>
+        </div>
+
+        {/* Color Swap Button */}
+        <div className="flex justify-center py-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              onTextColorChange(backgroundColor);
+              onBackgroundColorChange(textColor);
+            }}
+            className="flex items-center gap-2 border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+          >
+            <ArrowRightLeft className="w-4 h-4" />
+            Swap Colors
+          </Button>
         </div>
 
         {/* Background Color */}
