@@ -96,13 +96,6 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                 className="bg-muted text-foreground border-border" 
                 placeholder="#FFFFFF" 
               />
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="w-full text-xs text-muted-foreground hover:bg-muted"
-              >
-                Choose
-              </Button>
             </div>
           </div>
         </div>

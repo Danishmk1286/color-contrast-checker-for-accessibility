@@ -119,7 +119,7 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-10 gap-8">
             {/* Left Sidebar - Controls */}
-            <div className="lg:col-span-4 space-y-6 sticky top-24 self-start">
+            <div className="lg:col-span-4 space-y-4 sticky top-4 self-start max-h-screen overflow-y-auto">
               <ColorSelector
                 textColor={textColor}
                 backgroundColor={backgroundColor}
