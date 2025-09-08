@@ -193,16 +193,18 @@ const Index = () => {
       </section>
 
       {/* Tool Suite Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
-            Discover Our Complete Color Tool Suite
-          </h2>
-          <p className="text-lg text-muted-foreground mb-12">
-            Beyond just a color contrast checker, we offer comprehensive suite of color tools designed for designers and developers who prioritize accessibility and beautiful design.
-          </p>
+      <section className="py-16 px-4 bg-card/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Discover Our Complete Color Tool Suite
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Beyond just a color contrast checker, we offer comprehensive suite of color tools designed for designers and developers who prioritize accessibility and beautiful design.
+            </p>
+          </div>
           
-          <Card className="p-8 bg-primary/5 border-primary/20">
+          <Card className="p-8 text-center border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-center mb-6">
               <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
                 <Palette className="w-8 h-8 text-primary" />
