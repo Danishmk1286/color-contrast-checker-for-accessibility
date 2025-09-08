@@ -39,7 +39,7 @@ const About = () => {
       <SEOHead 
         title="About Color Contrast Checker | WCAG Accessibility Tool Documentation"
         description="Learn about our professional WCAG color contrast checker and accessibility testing tool. Built with modern web technologies for designers and developers who prioritize inclusive design."
-        canonicalUrl="https://color-contrast-checker-for-accessibility.lovable.app/about"
+        canonicalUrl="https://www.thecolorcontrastchecker.com/about"
       />
       <Layout>
       {/* Header */}

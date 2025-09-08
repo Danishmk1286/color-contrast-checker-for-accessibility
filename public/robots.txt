@@ -26,4 +26,4 @@ Allow: /blog/*
 
 Crawl-delay: 1
 
-Sitemap: https://color-contrast-checker-for-accessibility.lovable.app/sitemap.xml
+Sitemap: https://www.thecolorcontrastchecker.com/sitemap.xml

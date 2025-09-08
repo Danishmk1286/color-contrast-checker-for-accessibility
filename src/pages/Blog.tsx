@@ -147,7 +147,7 @@ const Blog = () => {
     <SEOHead 
       title="Web Accessibility Blog | WCAG Guidelines & Color Contrast Best Practices"
       description="Expert insights on web accessibility, WCAG compliance, and color contrast best practices. Learn how to create inclusive designs that meet accessibility standards."
-      canonicalUrl="https://color-contrast-checker-for-accessibility.lovable.app/blog"
+      canonicalUrl="https://www.thecolorcontrastchecker.com/blog"
     />
     <Layout>
       <main className="container mx-auto sm:py-8 md:py-16 max-w-6xl px-[17px] py-0 my-[7px]">

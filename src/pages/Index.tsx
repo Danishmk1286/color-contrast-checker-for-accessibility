@@ -209,9 +209,11 @@ const Index = () => {
               <Badge variant="secondary" className="text-xs md:text-sm">Design System Ready</Badge>
               <Badge variant="secondary" className="text-xs md:text-sm">Export Options</Badge>
             </div>
-            <Button className="gap-2 w-full sm:w-auto px-6 py-3 sm:px-4 sm:py-2 text-base sm:text-sm h-auto whitespace-normal leading-tight" size="lg">
-              Try Tints & Shades Generator
-              <CheckCircle className="w-4 h-4 sm:w-3 sm:h-3 flex-shrink-0" />
+            <Button className="gap-2 w-full sm:w-auto px-6 py-3 sm:px-4 sm:py-2 text-base sm:text-sm h-auto whitespace-normal leading-tight" size="lg" asChild>
+              <a href="https://tintandshadesgenerator.com" target="_blank" rel="noopener noreferrer">
+                Try Tints & Shades Generator
+                <CheckCircle className="w-4 h-4 sm:w-3 sm:h-3 flex-shrink-0" />
+              </a>
             </Button>
           </Card>
         </div>

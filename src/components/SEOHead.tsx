@@ -14,8 +14,8 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   title = "Color Contrast Checker & WCAG Accessibility Tool | Free Color Palette Generator",
   description = "Free WCAG color contrast checker and color palette generator. Test color accessibility, ensure AA/AAA compliance, and create accessible designs. Professional web accessibility tool for designers and developers.",
   keywords = "color contrast checker, WCAG accessibility, color palette generator, web accessibility, contrast ratio, AA compliance, AAA compliance, accessibility testing, color accessibility, design tools, inclusive design, ADA compliance, section 508, color blindness, visual impairment, accessibility standards, web design, UX design, frontend development",
-  canonicalUrl = "https://color-contrast-checker-for-accessibility.lovable.app/",
-  ogImage = "https://color-contrast-checker-for-accessibility.lovable.app/assets/og-image.png",
+  canonicalUrl = "https://www.thecolorcontrastchecker.com/",
+  ogImage = "https://www.thecolorcontrastchecker.com/assets/og-image.png",
   structuredData
 }) => {
   const defaultStructuredData = {
