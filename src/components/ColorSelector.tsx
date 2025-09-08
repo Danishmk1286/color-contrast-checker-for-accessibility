@@ -19,9 +19,9 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
   onBackgroundColorChange,
 }) => {
   return (
-    <Card className="border-sidebar-border">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-sidebar-foreground flex items-center gap-2">
+        <CardTitle className="text-foreground flex items-center gap-2">
           <Palette className="w-4 h-4" />
           Color Selection
         </CardTitle>
@@ -29,10 +29,10 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
       <CardContent className="space-y-6">
         {/* Text Color */}
         <div className="space-y-3">
-          <Label className="text-sidebar-foreground text-sm font-medium">Text Color</Label>
+          <Label className="text-foreground text-sm font-medium">Text Color</Label>
           <div className="flex gap-3">
             <div 
-              className="w-12 h-12 rounded-lg border border-sidebar-border cursor-pointer"
+              className="w-12 h-12 rounded-lg border border-border cursor-pointer"
               style={{ backgroundColor: textColor }}
               onClick={() => document.getElementById('text-color-input')?.click()}
             />
@@ -48,13 +48,13 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                 type="text"
                 value={textColor.toUpperCase()}
                 onChange={(e) => onTextColorChange(e.target.value)}
-                className="bg-sidebar-accent text-sidebar-foreground border-sidebar-border"
+                className="bg-background text-foreground border-border"
                 placeholder="#000000"
               />
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="w-full text-xs text-sidebar-foreground hover:bg-sidebar-accent"
+                className="w-full text-xs text-foreground hover:bg-muted"
               >
                 Choose
               </Button>
@@ -64,10 +64,10 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
 
         {/* Background Color */}
         <div className="space-y-3">
-          <Label className="text-sidebar-foreground text-sm font-medium">Background Color</Label>
+          <Label className="text-foreground text-sm font-medium">Background Color</Label>
           <div className="flex gap-3">
             <div 
-              className="w-12 h-12 rounded-lg border border-sidebar-border cursor-pointer"
+              className="w-12 h-12 rounded-lg border border-border cursor-pointer"
               style={{ backgroundColor: backgroundColor }}
               onClick={() => document.getElementById('bg-color-input')?.click()}
             />
@@ -83,13 +83,13 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                 type="text"
                 value={backgroundColor.toUpperCase()}
                 onChange={(e) => onBackgroundColorChange(e.target.value)}
-                className="bg-sidebar-accent text-sidebar-foreground border-sidebar-border"
+                className="bg-background text-foreground border-border"
                 placeholder="#FFFFFF"
               />
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="w-full text-xs text-sidebar-foreground hover:bg-sidebar-accent"
+                className="w-full text-xs text-foreground hover:bg-muted"
               >
                 Choose
               </Button>

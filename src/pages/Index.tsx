@@ -120,14 +120,12 @@ const Index = () => {
           <div className="grid lg:grid-cols-10 gap-8">
             {/* Left Sidebar - Controls */}
             <div className="lg:col-span-4 space-y-6 sticky top-24 self-start">
-              <div className="bg-sidebar-background/95 backdrop-blur-sm border-2 border-sidebar-border rounded-lg p-1 shadow-lg">
-                <ColorSelector
-                  textColor={textColor}
-                  backgroundColor={backgroundColor}
-                  onTextColorChange={setTextColor}
-                  onBackgroundColorChange={setBackgroundColor}
-                />
-              </div>
+              <ColorSelector
+                textColor={textColor}
+                backgroundColor={backgroundColor}
+                onTextColorChange={setTextColor}
+                onBackgroundColorChange={setBackgroundColor}
+              />
               
               {contrastResult && (
                 <ContrastResults result={contrastResult} />
