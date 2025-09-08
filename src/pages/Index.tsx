@@ -70,50 +70,50 @@ const Index = () => {
   }, [textColor, backgroundColor]);
   return (
     <Layout>
-      {/* Hero Section - Mobile full width */}
-      <section className="bg-gradient-to-b from-background to-background/50 px-4 md:px-4 py-8 md:py-16">
+      {/* Hero Section - Mobile optimized */}
+      <section className="bg-gradient-to-b from-background to-background/50 px-6 sm:px-4 md:px-4 py-12 sm:py-8 md:py-16">
         <div className="w-full md:container md:mx-auto text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8 sm:mb-6">
             <Zap className="w-4 h-4" />
             WCAG 2.1 Compliant
           </div>
           
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8 sm:mb-6 leading-tight px-2 sm:px-0">
             Color Contrast Checker &<br />
             <span className="text-primary">Color Palette Generator</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl sm:text-lg md:text-xl text-muted-foreground mb-10 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
             Professional Color Contrast Checker and Color Palette Generator for WCAG color accessibility compliance testing. Ensure your designs meet AA and AAA accessibility standards for optimal user experience.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
-            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
-              <Shield className="w-3 h-3 md:w-4 md:h-4" />
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-3 md:gap-4 mb-8 px-2 sm:px-0">
+            <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
+              <Shield className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
               WCAG 2.1 Compliant
             </Badge>
-            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
-              <Eye className="w-3 h-3 md:w-4 md:h-4" />
+            <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
+              <Eye className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
               Real-time Preview
             </Badge>
-            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
-              <Palette className="w-3 h-3 md:w-4 md:h-4" />
+            <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
+              <Palette className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
               AA & AAA Testing
             </Badge>
-            <Badge variant="outline" className="gap-2 py-2 px-3 md:px-4 text-xs md:text-sm">
-              <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
+            <Badge variant="outline" className="gap-2 py-3 px-4 sm:py-2 sm:px-3 md:px-4 text-sm sm:text-xs md:text-sm">
+              <CheckCircle className="w-4 h-4 sm:w-3 sm:h-3 md:w-4 md:h-4" />
               Color Palette Generator
             </Badge>
           </div>
         </div>
       </section>
 
-      {/* Main Tool Section - Full width on mobile */}
-      <section className="py-6 md:py-8 lg:py-12 px-0 md:px-4">
+      {/* Main Tool Section - Professional mobile spacing */}
+      <section className="py-8 sm:py-6 md:py-8 lg:py-12 px-0 md:px-4">
         <div className="w-full md:container md:mx-auto md:max-w-7xl">
-          <div className="grid gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
-            {/* Controls Section - Full width on mobile, sidebar on desktop */}
-            <div className="px-4 md:px-0 lg:col-span-4 space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+          <div className="grid gap-6 sm:gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
+            {/* Controls Section - Professional mobile design */}
+            <div className="px-6 sm:px-4 md:px-0 lg:col-span-4 space-y-6 sm:space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
               <ColorSelector 
                 textColor={textColor} 
                 backgroundColor={backgroundColor} 
@@ -124,12 +124,12 @@ const Index = () => {
               {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
 
-            {/* Live Preview Section - Full width on mobile */}
-            <div className="px-4 md:px-0 lg:col-span-6">
+            {/* Live Preview Section - Mobile optimized */}
+            <div className="px-6 sm:px-4 md:px-0 lg:col-span-6">
               <div className="sticky top-4 lg:top-20">
-                <div className="mb-4 lg:hidden">
-                  <h2 className="text-lg font-semibold text-foreground">Live Preview</h2>
-                  <p className="text-sm text-muted-foreground">See how your colors look in real interfaces</p>
+                <div className="mb-6 sm:mb-4 lg:hidden">
+                  <h2 className="text-xl sm:text-lg font-semibold text-foreground mb-2">Live Preview</h2>
+                  <p className="text-base sm:text-sm text-muted-foreground">See how your colors look in real interfaces</p>
                 </div>
                 <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
               </div>
