@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CalendarDays, Clock, ArrowRight, User } from 'lucide-react';
+import { CalendarDays, Clock, ArrowRight, User, Heart, Github, Star, Share2 } from 'lucide-react';
 
 const Blog = () => {
   const blogPosts = [
@@ -223,30 +223,51 @@ const Blog = () => {
           ))}
         </div>
 
-        {/* Newsletter Signup */}
-        <Card className="mt-16 bg-primary/5 border-primary/20">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Stay Updated on Accessibility</CardTitle>
-            <CardDescription className="text-base">
-              Get the latest insights on web accessibility, WCAG updates, and best practices delivered to your inbox.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center">
-            <div className="flex gap-3 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="flex-1 px-4 py-2 rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button className="px-6">
-                Subscribe
+        {/* GitHub Feedback Section */}
+        <div className="mt-12 md:mt-16">
+          <div className="text-center p-6 md:p-8 bg-primary/5 rounded-lg border border-primary/20">
+            <div className="flex justify-center mb-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <Heart className="w-6 h-6 text-primary animate-pulse" />
+              </div>
+            </div>
+            <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
+              Enjoying our Color Contrast Checker? ⭐
+            </h3>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Help others discover this accessibility tool by starring our GitHub repository and sharing your experience. Your support helps us build better tools for everyone!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Button 
+                onClick={() => window.open('https://github.com/danishmk1286/color-contrast-checker-for-accessibility', '_blank')}
+                className="gap-2 bg-[#24292e] hover:bg-[#24292e]/90 text-white"
+                size="lg"
+              >
+                <Github className="w-4 h-4" />
+                <Star className="w-4 h-4" />
+                Star on GitHub
+              </Button>
+              <Button 
+                onClick={() => {
+                  const url = window.location.href;
+                  const text = 'Just used this amazing WCAG Color Contrast Checker! 🎨 Perfect for creating accessible designs. Highly recommend! ⭐';
+                  if (navigator.share) {
+                    navigator.share({ title: 'Color Contrast Checker Review', text, url });
+                  } else {
+                    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                    window.open(shareUrl, '_blank');
+                  }
+                }}
+                variant="outline"
+                size="lg"
+                className="gap-2"
+              >
+                <Share2 className="w-4 h-4" />
+                Share Your Review
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </main>
     </Layout>
   );
