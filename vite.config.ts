@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/WCAG-Color-Contrast-Checker/", // 👈 Add this line
+  base: mode === 'production' ? "/WCAG-Color-Contrast-Checker/" : "/",
   server: {
     host: "::",
     port: 8080,
