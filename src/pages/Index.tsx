@@ -70,9 +70,9 @@ const Index = () => {
   }, [textColor, backgroundColor]);
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-background to-background/50 px-4 py-8 md:py-16">
-        <div className="container mx-auto text-center max-w-4xl">
+      {/* Hero Section - Mobile full width */}
+      <section className="bg-gradient-to-b from-background to-background/50 px-4 md:px-4 py-8 md:py-16">
+        <div className="w-full md:container md:mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Zap className="w-4 h-4" />
             WCAG 2.1 Compliant
@@ -108,12 +108,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Main Tool Section */}
-      <section className="py-6 md:py-8 lg:py-12 px-4">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid gap-6 lg:grid-cols-10 lg:gap-8">
+      {/* Main Tool Section - Full width on mobile */}
+      <section className="py-6 md:py-8 lg:py-12 px-0 md:px-4">
+        <div className="w-full md:container md:mx-auto md:max-w-7xl">
+          <div className="grid gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
             {/* Controls Section - Full width on mobile, sidebar on desktop */}
-            <div className="lg:col-span-4 space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+            <div className="px-4 md:px-0 lg:col-span-4 space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
               <ColorSelector 
                 textColor={textColor} 
                 backgroundColor={backgroundColor} 
@@ -124,8 +124,8 @@ const Index = () => {
               {contrastResult && <ContrastResults result={contrastResult} />}
             </div>
 
-            {/* Live Preview Section */}
-            <div className="lg:col-span-6">
+            {/* Live Preview Section - Full width on mobile */}
+            <div className="px-4 md:px-0 lg:col-span-6">
               <div className="sticky top-4 lg:top-20">
                 <div className="mb-4 lg:hidden">
                   <h2 className="text-lg font-semibold text-foreground">Live Preview</h2>

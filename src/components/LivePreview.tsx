@@ -11,8 +11,8 @@ const LivePreview: React.FC<LivePreviewProps> = ({
 }) => {
   return (
     <div>
-      {/* Mobile-First Responsive Preview */}
-      <Card className="border-2 border-border overflow-hidden" style={{
+      {/* Mobile-First Full Width Preview */}
+      <Card className="border-2 border-border overflow-hidden rounded-none md:rounded-lg" style={{
         backgroundColor,
         color: textColor
       }}>
@@ -49,7 +49,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({
               </p>
             </div>
             <Button 
-              className="w-full sm:w-auto px-6 py-3 md:py-2 rounded-md font-medium text-base md:text-sm transition-transform active:scale-95" 
+              className="w-full sm:w-auto px-6 py-3 md:py-2 rounded-none md:rounded-md font-medium text-base md:text-sm transition-transform active:scale-95" 
               style={{
                 backgroundColor: textColor,
                 color: backgroundColor,
@@ -60,9 +60,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({
             </Button>
           </div>
 
-          {/* Content Cards - Responsive Grid */}
+          {/* Content Cards - Full width on mobile */}
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="p-4" style={{
+            <Card className="p-4 rounded-none md:rounded-md" style={{
               backgroundColor: textColor + '10',
               color: textColor
             }}>
@@ -74,7 +74,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({
               <div className="text-xs opacity-60">View Details →</div>
             </Card>
 
-            <Card className="p-4" style={{
+            <Card className="p-4 rounded-none md:rounded-md" style={{
               backgroundColor: textColor + '10',
               color: textColor
             }}>
@@ -92,7 +92,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({
             <h3 className="font-semibold text-sm md:text-base">Form Elements</h3>
             <div className="space-y-3">
               <label className="block text-xs md:text-sm font-medium">Input Label</label>
-              <div className="w-full p-3 md:p-2 rounded border text-sm" style={{
+              <div className="w-full p-3 md:p-2 rounded-none md:rounded border text-sm" style={{
                 borderColor: textColor + '40',
                 backgroundColor: backgroundColor,
                 color: textColor,
@@ -108,10 +108,10 @@ const LivePreview: React.FC<LivePreviewProps> = ({
                 <span className="text-xs md:text-sm">Checkbox with descriptive text</span>
               </div>
               
-              {/* Button Group - Stack on mobile */}
+              {/* Button Group - Stack on mobile, full width */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button 
-                  className="w-full sm:w-auto px-4 py-3 sm:py-2 rounded text-sm transition-transform active:scale-95" 
+                  className="w-full sm:w-auto px-4 py-3 sm:py-2 rounded-none md:rounded text-sm transition-transform active:scale-95" 
                   style={{
                     backgroundColor: textColor + '20',
                     color: textColor,
@@ -122,7 +122,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({
                   Secondary Button
                 </Button>
                 <Button 
-                  className="w-full sm:w-auto px-4 py-3 sm:py-2 rounded text-sm transition-transform active:scale-95" 
+                  className="w-full sm:w-auto px-4 py-3 sm:py-2 rounded-none md:rounded text-sm transition-transform active:scale-95" 
                   style={{
                     backgroundColor: textColor,
                     color: backgroundColor,
