@@ -143,7 +143,7 @@ const Blog = () => {
     tags: ["Tools", "Design Systems", "Best Practices", "UX"]
   }];
   return <Layout>
-      <main className="container mx-auto px-4 py-6 sm:py-8 md:py-12 max-w-6xl">
+      <main className="container mx-auto sm:py-8 md:py-12 max-w-6xl my-0 px-[17px] py-0">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
@@ -155,10 +155,10 @@ const Blog = () => {
         </div>
 
         {/* Blog Posts */}
-        <div className="grid gap-6 sm:gap-8 md:gap-12">
+        <div className="grid gap-6 sm:gap-8 md:gap-12 py-[24px]">
           {blogPosts.map((post, index) => <article key={post.id} className="group">
               <Card className="border-border hover:shadow-lg transition-all duration-300">
-                <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6">
+                <CardHeader className="pb-3 sm:pb-4 p-4 sm:p-6 py-[42px]">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 sm:gap-4 text-sm text-muted-foreground mb-3">
