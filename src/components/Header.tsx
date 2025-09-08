@@ -47,7 +47,7 @@ const Header = () => {
             <Button variant="ghost" asChild className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
               <Link to="/">
                 <Home className="w-4 h-4" />
-                <span className="hidden lg:inline">Checker</span>
+                <span className="hidden lg:inline">Home</span>
               </Link>
             </Button>
             <Button variant="ghost" asChild className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted">
@@ -109,7 +109,7 @@ const Header = () => {
                     >
                       <Link to="/">
                         <Home className="w-5 h-5" />
-                        Color Checker
+                        Home
                       </Link>
                     </Button>
                     <Button 
