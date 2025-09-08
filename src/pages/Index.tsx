@@ -82,7 +82,7 @@ const Index = () => {
             WCAG 2.1 AA & AAA Compliant
           </div>
           
-          <h1 className="text-3xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 sm:mb-6 leading-tight px-2 sm:px-0">
+          <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 sm:mb-6 leading-tight px-2 sm:px-0">
             Free Color Contrast Checker &<br />
             <span className="text-primary">WCAG Accessibility Tool</span>
           </h1>
