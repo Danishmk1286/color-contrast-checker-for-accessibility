@@ -11,9 +11,9 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "Color Contrast Checker & WCAG Accessibility Tool | Free Color Palette Generator",
+  title = "Free WCAG color contrast Accessibility Checker",
   description = "Free WCAG color contrast checker and color palette generator. Test color accessibility, ensure AA/AAA compliance, and create accessible designs. Professional web accessibility tool for designers and developers.",
-  keywords = "color contrast checker, WCAG accessibility, color palette generator, web accessibility, contrast ratio, AA compliance, AAA compliance, accessibility testing, color accessibility, design tools, inclusive design, ADA compliance, section 508, color blindness, visual impairment, accessibility standards, web design, UX design, frontend development",
+  keywords = "color contrast checker, wcag contrast, colour and contrast, wcag contrast ratio, wcag contrast standards, WCAG accessibility, WCAG Accessibility Tool, contrast ratio calculator, AA compliance, AAA compliance, accessibility testing, color accessibility",
   canonicalUrl = "https://www.thecolorcontrastchecker.com/",
   ogImage = "https://www.thecolorcontrastchecker.com/assets/og-image.png",
   structuredData

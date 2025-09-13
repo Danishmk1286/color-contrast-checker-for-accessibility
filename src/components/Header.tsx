@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Home, BookOpen, Info, Share, Menu, X } from 'lucide-react';
+import logoImage from '@/assets/logo.png';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -62,8 +63,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 md:gap-3">
-            <div className="w-7 h-7 md:w-8 md:h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-xs md:text-sm font-bold text-primary-foreground">W</span>
+            <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg flex items-center justify-center">
+              <img src={logoImage} alt="WCAG Contrast Checker Logo" className="w-full h-full rounded-lg" />
             </div>
             <span className="text-base md:text-lg font-semibold text-foreground hidden sm:block">
               Color Contrast Checker
@@ -123,8 +124,8 @@ const Header = () => {
                   {/* Mobile Header */}
                   <div className="flex items-center justify-between pb-4 border-b border-border">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center">
-                        <span className="text-xs font-bold text-primary-foreground">W</span>
+                      <div className="w-6 h-6 rounded-md flex items-center justify-center">
+                        <img src={logoImage} alt="WCAG Contrast Checker Logo" className="w-full h-full rounded-md" />
                       </div>
                       <span className="text-sm font-semibold">Navigation</span>
                     </div>
