@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Home, BookOpen, Info, Share, Menu, X } from 'lucide-react';
+import { Home, BookOpen, Info, Share, Menu } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
 
 const Header = () => {

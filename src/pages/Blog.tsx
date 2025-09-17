@@ -5,7 +5,7 @@ import SEOHead from '@/components/SEOHead';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CalendarDays, Clock, ArrowRight, User, Heart, Github, Star, Share2 } from 'lucide-react';
+import { CalendarDays, Clock, ArrowRight, User } from 'lucide-react';
 const Blog = () => {
   const blogPosts = [{
     id: 1,
