@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Heart, Star, Share2, Github, X, ExternalLink } from 'lucide-react';
 
 const GitHubAppreciationPopup: React.FC = () => {
@@ -128,6 +128,11 @@ const GitHubAppreciationPopup: React.FC = () => {
   return (
     <Dialog open={isVisible} onOpenChange={setIsVisible}>
       <DialogContent className="max-w-md mx-auto p-0 border-border">
+        {/* Accessible title and description for screen readers */}
+        <DialogHeader className="sr-only">
+          <DialogTitle>Support the Color Contrast Checker</DialogTitle>
+          <DialogDescription>Star or share the project on GitHub to support development.</DialogDescription>
+        </DialogHeader>
         <Card className="border-0 shadow-none">
           <CardHeader className="relative pb-4">
             <Button
