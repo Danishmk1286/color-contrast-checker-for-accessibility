@@ -20,11 +20,11 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: mode === 'production' ? {
-    outDir: 'docs',
+  build: {
+    outDir: mode === 'production' ? 'docs' : 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
     cssCodeSplit: true,
-  } : undefined,
+  },
 }));
 
