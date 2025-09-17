@@ -55,7 +55,13 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                   <Input 
                     type="text" 
                     value={textColor.toUpperCase()} 
-                    onChange={e => onTextColorChange(e.target.value)} 
+                    onChange={e => {
+                      let value = e.target.value.trim();
+                      if (value && !value.startsWith('#')) {
+                        value = '#' + value;
+                      }
+                      onTextColorChange(value);
+                    }} 
                     className="bg-muted text-foreground border-border h-14 sm:h-12 md:h-10 text-lg sm:text-base md:text-sm rounded-xl sm:rounded-lg md:rounded-md font-mono tracking-wider"
                     placeholder="#000000" 
                   />
@@ -83,7 +89,13 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                   <Input 
                     type="text" 
                     value={backgroundColor.toUpperCase()} 
-                    onChange={e => onBackgroundColorChange(e.target.value)} 
+                    onChange={e => {
+                      let value = e.target.value.trim();
+                      if (value && !value.startsWith('#')) {
+                        value = '#' + value;
+                      }
+                      onBackgroundColorChange(value);
+                    }} 
                     className="bg-muted text-foreground border-border h-14 sm:h-12 md:h-10 text-lg sm:text-base md:text-sm rounded-xl sm:rounded-lg md:rounded-md font-mono tracking-wider"
                     placeholder="#FFFFFF" 
                   />

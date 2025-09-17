@@ -8,18 +8,36 @@ const GitHubAppreciationPopup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if popup has been shown before
-    const hasShown = localStorage.getItem('github-appreciation-shown');
+    // Check if popup has been shown before via cookie
+    const hasShown = getCookie('github-appreciation-shown');
     
     if (!hasShown) {
       const timer = setTimeout(() => {
         setIsVisible(true);
-        localStorage.setItem('github-appreciation-shown', 'true');
+        setCookie('github-appreciation-shown', 'true', 30); // 30 days expiry
       }, 8000); // 8 seconds for faster loading
 
       return () => clearTimeout(timer);
     }
   }, []);
+
+  // Cookie helper functions
+  const setCookie = (name: string, value: string, days: number) => {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Strict`;
+  };
+
+  const getCookie = (name: string): string | null => {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  };
 
   const handleClose = () => {
     setIsVisible(false);

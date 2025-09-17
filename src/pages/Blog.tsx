@@ -188,7 +188,9 @@ const Blog = () => {
                       </div>
                       
                       <CardTitle className="text-xl sm:text-2xl md:text-3xl leading-tight mb-2 sm:mb-3 group-hover:text-primary transition-colors">
-                        {post.title}
+                        <Link to={`/blog/${post.id}`} className="hover:text-primary transition-colors">
+                          {post.title}
+                        </Link>
                       </CardTitle>
                       
                       <CardDescription className="text-sm sm:text-base leading-relaxed">

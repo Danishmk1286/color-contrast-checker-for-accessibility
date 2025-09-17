@@ -7,20 +7,38 @@ const GDPRNotice: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted GDPR
-    const hasAccepted = localStorage.getItem('gdpr-accepted');
+    // Check if user has already accepted/declined GDPR via cookie
+    const hasAccepted = getCookie('gdpr-accepted');
     if (!hasAccepted) {
       setIsVisible(true);
     }
   }, []);
 
+  // Cookie helper functions
+  const setCookie = (name: string, value: string, days: number) => {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Strict`;
+  };
+
+  const getCookie = (name: string): string | null => {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  };
+
   const handleAccept = () => {
-    localStorage.setItem('gdpr-accepted', 'true');
+    setCookie('gdpr-accepted', 'true', 365); // 1 year expiry
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('gdpr-accepted', 'declined');
+    setCookie('gdpr-accepted', 'declined', 365); // 1 year expiry
     setIsVisible(false);
   };
 
