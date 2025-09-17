@@ -39,19 +39,17 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
             <div className="space-y-4 sm:space-y-3">
               <Label className="text-foreground text-base sm:text-sm font-medium">Text Color (Foreground)</Label>
               <div className="flex gap-4 sm:gap-3">
-                <div 
-                  className="w-14 h-14 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-xl sm:rounded-lg border-2 sm:border border-border cursor-pointer flex-shrink-0 transition-all active:scale-95 hover:shadow-sm" 
-                  style={{ backgroundColor: textColor }}
-                  onClick={() => document.getElementById('text-color-input')?.click()} 
-                />
-                <div className="flex-1">
+                <div className="relative">
                   <Input 
                     id="text-color-input" 
                     type="color" 
                     value={textColor} 
                     onChange={e => onTextColorChange(e.target.value)} 
-                    className="opacity-0 absolute w-0 h-0" 
+                    className="w-14 h-14 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-xl sm:rounded-lg border-2 sm:border border-border cursor-pointer flex-shrink-0 transition-all active:scale-95 hover:shadow-sm appearance-none bg-transparent"
+                    style={{ backgroundColor: textColor }}
                   />
+                </div>
+                <div className="flex-1">
                   <Input 
                     type="text" 
                     value={textColor.toUpperCase()} 
@@ -88,19 +86,17 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
             <div className="space-y-4 sm:space-y-3">
               <Label className="text-foreground text-base sm:text-sm font-medium">Background Color</Label>
               <div className="flex gap-4 sm:gap-3">
-                <div 
-                  className="w-14 h-14 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-xl sm:rounded-lg border-2 sm:border border-border cursor-pointer flex-shrink-0 transition-all active:scale-95 hover:shadow-sm" 
-                  style={{ backgroundColor: backgroundColor }}
-                  onClick={() => document.getElementById('bg-color-input')?.click()} 
-                />
-                <div className="flex-1">
+                <div className="relative">
                   <Input 
                     id="bg-color-input" 
                     type="color" 
                     value={backgroundColor} 
                     onChange={e => onBackgroundColorChange(e.target.value)} 
-                    className="opacity-0 absolute w-0 h-0" 
+                    className="w-14 h-14 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-xl sm:rounded-lg border-2 sm:border border-border cursor-pointer flex-shrink-0 transition-all active:scale-95 hover:shadow-sm appearance-none bg-transparent"
+                    style={{ backgroundColor: backgroundColor }}
                   />
+                </div>
+                <div className="flex-1">
                   <Input 
                     type="text" 
                     value={backgroundColor.toUpperCase()} 
