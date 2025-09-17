@@ -7,18 +7,18 @@ const GDPRNotice: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted/declined GDPR via cookie
-    const hasAccepted = getCookie('gdpr-accepted');
-    if (!hasAccepted) {
+    // Prefer localStorage with expiry, fallback to cookie
+    const stored = getWithExpiry('gdpr-accepted') || getCookie('gdpr-accepted');
+    if (!stored) {
       setIsVisible(true);
     }
   }, []);
 
-  // Cookie helper functions
+  // Cookie/localStorage helpers with expiry
   const setCookie = (name: string, value: string, days: number) => {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Strict`;
+    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+    const secure = window.location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie = `${name}=${value};expires=${expires};path=/;SameSite=Strict${secure}`;
   };
 
   const getCookie = (name: string): string | null => {
@@ -26,19 +26,43 @@ const GDPRNotice: React.FC = () => {
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
-      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      while (c.charAt(0) === ' ') c = c.substring(1);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
     }
     return null;
   };
 
+  const setWithExpiry = (key: string, value: string, days: number) => {
+    try {
+      const item = { value, expiry: Date.now() + days * 24 * 60 * 60 * 1000 };
+      localStorage.setItem(key, JSON.stringify(item));
+    } catch {}
+  };
+
+  const getWithExpiry = (key: string): string | null => {
+    try {
+      const str = localStorage.getItem(key);
+      if (!str) return null;
+      const item = JSON.parse(str);
+      if (item && typeof item.expiry === 'number' && Date.now() < item.expiry) {
+        return item.value as string;
+      }
+      localStorage.removeItem(key);
+      return null;
+    } catch {
+      return null;
+    }
+  };
+
   const handleAccept = () => {
-    setCookie('gdpr-accepted', 'true', 365); // 1 year expiry
+    setWithExpiry('gdpr-accepted', 'true', 365); // 1 year expiry
+    setCookie('gdpr-accepted', 'true', 365);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    setCookie('gdpr-accepted', 'declined', 365); // 1 year expiry
+    setWithExpiry('gdpr-accepted', 'declined', 365); // 1 year expiry
+    setCookie('gdpr-accepted', 'declined', 365);
     setIsVisible(false);
   };
 

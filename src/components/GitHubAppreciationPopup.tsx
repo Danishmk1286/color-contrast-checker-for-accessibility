@@ -8,24 +8,21 @@ const GitHubAppreciationPopup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if popup has been shown before via cookie
-    const hasShown = getCookie('github-appreciation-shown');
-    
+    // Check if popup has been shown before via localStorage (with expiry) or cookie
+    const hasShown = getWithExpiry('github-appreciation-shown') || getCookie('github-appreciation-shown');
     if (!hasShown) {
       const timer = setTimeout(() => {
         setIsVisible(true);
-        setCookie('github-appreciation-shown', 'true', 30); // 30 days expiry
       }, 8000); // 8 seconds for faster loading
-
       return () => clearTimeout(timer);
     }
   }, []);
 
-  // Cookie helper functions
+  // Cookie/localStorage helper functions with expiry
   const setCookie = (name: string, value: string, days: number) => {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Strict`;
+    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+    const secure = window.location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie = `${name}=${value};expires=${expires};path=/;SameSite=Strict${secure}`;
   };
 
   const getCookie = (name: string): string | null => {
@@ -33,19 +30,47 @@ const GitHubAppreciationPopup: React.FC = () => {
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
-      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      while (c.charAt(0) === ' ') c = c.substring(1);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
     }
     return null;
   };
 
+  const setWithExpiry = (key: string, value: string, days: number) => {
+    try {
+      const item = { value, expiry: Date.now() + days * 24 * 60 * 60 * 1000 };
+      localStorage.setItem(key, JSON.stringify(item));
+    } catch {}
+  };
+
+  const getWithExpiry = (key: string): string | null => {
+    try {
+      const str = localStorage.getItem(key);
+      if (!str) return null;
+      const item = JSON.parse(str);
+      if (item && typeof item.expiry === 'number' && Date.now() < item.expiry) {
+        return item.value as string;
+      }
+      localStorage.removeItem(key);
+      return null;
+    } catch {
+      return null;
+    }
+  };
+
   const handleClose = () => {
+    setWithExpiry('github-appreciation-shown', 'true', 30);
+    setCookie('github-appreciation-shown', 'true', 30);
     setIsVisible(false);
   };
 
   const handleGitHubAction = (action: string) => {
     // Track the action
     console.log(`User clicked: ${action}`);
+
+    // Persist choice for 30 days
+    setWithExpiry('github-appreciation-shown', 'true', 30);
+    setCookie('github-appreciation-shown', 'true', 30);
     
     // Open GitHub repository
     window.open('https://github.com/danishmk1286/color-contrast-checker-for-accessibility', '_blank');
@@ -77,6 +102,10 @@ const GitHubAppreciationPopup: React.FC = () => {
           return;
       }
       
+      // Persist choice for 30 days
+      setWithExpiry('github-appreciation-shown', 'true', 30);
+      setCookie('github-appreciation-shown', 'true', 30);
+
       window.open(shareUrl, '_blank', 'width=600,height=400');
       setIsVisible(false);
     } catch (error) {
