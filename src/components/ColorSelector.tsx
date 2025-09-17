@@ -43,7 +43,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                   <Input 
                     id="text-color-input" 
                     type="color" 
-                    value={textColor} 
+                    value={/^#[0-9a-fA-F]{6}$/.test(textColor) ? textColor.toLowerCase() : "#000000"} 
                     onChange={e => onTextColorChange(e.target.value)} 
                     className="w-14 h-14 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-xl sm:rounded-lg border-2 sm:border border-border cursor-pointer flex-shrink-0 transition-all active:scale-95 hover:shadow-sm appearance-none bg-transparent"
                     style={{ backgroundColor: textColor }}
@@ -72,7 +72,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                         value = value.substring(0, 7);
                       }
                       
-                      onTextColorChange(value);
+                      onTextColorChange(value.toLowerCase());
                     }} 
                     className="bg-muted text-foreground border-border h-14 sm:h-12 md:h-10 text-lg sm:text-base md:text-sm rounded-xl sm:rounded-lg md:rounded-md font-mono tracking-wider"
                     placeholder="#000000" 
@@ -90,7 +90,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                   <Input 
                     id="bg-color-input" 
                     type="color" 
-                    value={backgroundColor} 
+                    value={/^#[0-9a-fA-F]{6}$/.test(backgroundColor) ? backgroundColor.toLowerCase() : "#000000"} 
                     onChange={e => onBackgroundColorChange(e.target.value)} 
                     className="w-14 h-14 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-xl sm:rounded-lg border-2 sm:border border-border cursor-pointer flex-shrink-0 transition-all active:scale-95 hover:shadow-sm appearance-none bg-transparent"
                     style={{ backgroundColor: backgroundColor }}
@@ -119,7 +119,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                         value = value.substring(0, 7);
                       }
                       
-                      onBackgroundColorChange(value);
+                      onBackgroundColorChange(value.toLowerCase());
                     }} 
                     className="bg-muted text-foreground border-border h-14 sm:h-12 md:h-10 text-lg sm:text-base md:text-sm rounded-xl sm:rounded-lg md:rounded-md font-mono tracking-wider"
                     placeholder="#FFFFFF" 
