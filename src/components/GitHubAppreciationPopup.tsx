@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Heart, Star, Share2, Github, X, ExternalLink } from 'lucide-react';
 
 const GitHubAppreciationPopup: React.FC = () => {
@@ -65,13 +65,8 @@ const GitHubAppreciationPopup: React.FC = () => {
   };
 
   const handleGitHubAction = (action: string) => {
-    // Track the action for analytics
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'github_action', {
-        event_category: 'engagement',
-        event_label: action
-      });
-    }
+    // Track the action
+    console.log(`User clicked: ${action}`);
 
     // Persist choice for 30 days
     setWithExpiry('github-appreciation-shown', 'true', 30);
@@ -114,13 +109,7 @@ const GitHubAppreciationPopup: React.FC = () => {
       window.open(shareUrl, '_blank', 'width=600,height=400');
       setIsVisible(false);
     } catch (error) {
-      // Handle share failures gracefully
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'share_error', {
-          event_category: 'error',
-          event_label: error.toString()
-        });
-      }
+      console.error('Share failed:', error);
       // Keep popup open if share fails
     }
   };
@@ -128,11 +117,6 @@ const GitHubAppreciationPopup: React.FC = () => {
   return (
     <Dialog open={isVisible} onOpenChange={setIsVisible}>
       <DialogContent className="max-w-md mx-auto p-0 border-border">
-        {/* Accessible title and description for screen readers */}
-        <DialogHeader className="sr-only">
-          <DialogTitle>Support the Color Contrast Checker</DialogTitle>
-          <DialogDescription>Star or share the project on GitHub to support development.</DialogDescription>
-        </DialogHeader>
         <Card className="border-0 shadow-none">
           <CardHeader className="relative pb-4">
             <Button
