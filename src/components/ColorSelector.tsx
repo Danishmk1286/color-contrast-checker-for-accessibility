@@ -57,13 +57,28 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                     value={textColor.toUpperCase()} 
                     onChange={e => {
                       let value = e.target.value.trim();
-                      if (value && !value.startsWith('#')) {
+                      
+                      // Remove any characters that aren't hex digits or #
+                      value = value.replace(/[^#0-9A-Fa-f]/g, '');
+                      
+                      // Ensure only one # at the beginning
+                      if (value.includes('#')) {
+                        const parts = value.split('#');
+                        value = '#' + parts.slice(1).join('');
+                      } else if (value.length > 0) {
                         value = '#' + value;
                       }
+                      
+                      // Limit length to valid hex color format
+                      if (value.length > 7) {
+                        value = value.substring(0, 7);
+                      }
+                      
                       onTextColorChange(value);
                     }} 
                     className="bg-muted text-foreground border-border h-14 sm:h-12 md:h-10 text-lg sm:text-base md:text-sm rounded-xl sm:rounded-lg md:rounded-md font-mono tracking-wider"
                     placeholder="#000000" 
+                    maxLength={7}
                   />
                 </div>
               </div>
@@ -91,13 +106,28 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
                     value={backgroundColor.toUpperCase()} 
                     onChange={e => {
                       let value = e.target.value.trim();
-                      if (value && !value.startsWith('#')) {
+                      
+                      // Remove any characters that aren't hex digits or #
+                      value = value.replace(/[^#0-9A-Fa-f]/g, '');
+                      
+                      // Ensure only one # at the beginning
+                      if (value.includes('#')) {
+                        const parts = value.split('#');
+                        value = '#' + parts.slice(1).join('');
+                      } else if (value.length > 0) {
                         value = '#' + value;
                       }
+                      
+                      // Limit length to valid hex color format
+                      if (value.length > 7) {
+                        value = value.substring(0, 7);
+                      }
+                      
                       onBackgroundColorChange(value);
                     }} 
                     className="bg-muted text-foreground border-border h-14 sm:h-12 md:h-10 text-lg sm:text-base md:text-sm rounded-xl sm:rounded-lg md:rounded-md font-mono tracking-wider"
                     placeholder="#FFFFFF" 
+                    maxLength={7}
                   />
                 </div>
               </div>
