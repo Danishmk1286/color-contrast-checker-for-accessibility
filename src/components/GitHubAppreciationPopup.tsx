@@ -65,8 +65,13 @@ const GitHubAppreciationPopup: React.FC = () => {
   };
 
   const handleGitHubAction = (action: string) => {
-    // Track the action
-    console.log(`User clicked: ${action}`);
+    // Track the action for analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'github_action', {
+        event_category: 'engagement',
+        event_label: action
+      });
+    }
 
     // Persist choice for 30 days
     setWithExpiry('github-appreciation-shown', 'true', 30);
@@ -109,7 +114,13 @@ const GitHubAppreciationPopup: React.FC = () => {
       window.open(shareUrl, '_blank', 'width=600,height=400');
       setIsVisible(false);
     } catch (error) {
-      console.error('Share failed:', error);
+      // Handle share failures gracefully
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'share_error', {
+          event_category: 'error',
+          event_label: error.toString()
+        });
+      }
       // Keep popup open if share fails
     }
   };

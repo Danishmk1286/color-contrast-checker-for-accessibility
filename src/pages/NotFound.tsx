@@ -7,11 +7,14 @@ import { Home } from 'lucide-react';
 const NotFound = () => {
   const location = useLocation();
 
+  // Track 404 errors for analytics
   useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'page_not_found', {
+        event_category: 'navigation',
+        event_label: location.pathname
+      });
+    }
   }, [location.pathname]);
 
   return (
