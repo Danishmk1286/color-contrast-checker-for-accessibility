@@ -13,9 +13,75 @@ interface ContrastResult {
 
 interface ContrastResultsProps {
   result: ContrastResult;
+  textColor: string;
+  backgroundColor: string;
 }
 
-const ContrastResults: React.FC<ContrastResultsProps> = ({ result }) => {
+// Helper function to generate accessible color alternatives
+const generateAccessibleColor = (textColor: string, bgColor: string, currentRatio: number): { text: string; bg: string } => {
+  // Parse hex colors
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : { r: 0, g: 0, b: 0 };
+  };
+
+  const rgbToHex = (r: number, g: number, b: number) => {
+    return "#" + [r, g, b].map(x => {
+      const hex = Math.round(x).toString(16);
+      return hex.length === 1 ? "0" + hex : hex;
+    }).join('');
+  };
+
+  const bgRgb = hexToRgb(bgColor);
+  const textRgb = hexToRgb(textColor);
+  
+  // Calculate luminance
+  const getLuminance = (rgb: { r: number; g: number; b: number }) => {
+    const [r, g, b] = [rgb.r, rgb.g, rgb.b].map(val => {
+      const v = val / 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+
+  const bgLum = getLuminance(bgRgb);
+  const textLum = getLuminance(textRgb);
+
+  // If contrast is already good, return original colors
+  if (currentRatio >= 4.5) {
+    return { text: textColor, bg: bgColor };
+  }
+
+  // Determine if we should lighten or darken
+  const shouldLightenText = bgLum < 0.5;
+
+  // Adjust text color for better contrast
+  let newTextRgb = { ...textRgb };
+  if (shouldLightenText) {
+    // Lighten the text
+    const factor = 1 + (4.5 - currentRatio) * 0.3;
+    newTextRgb.r = Math.min(255, textRgb.r * factor);
+    newTextRgb.g = Math.min(255, textRgb.g * factor);
+    newTextRgb.b = Math.min(255, textRgb.b * factor);
+  } else {
+    // Darken the text
+    const factor = 1 - (4.5 - currentRatio) * 0.2;
+    newTextRgb.r = Math.max(0, textRgb.r * factor);
+    newTextRgb.g = Math.max(0, textRgb.g * factor);
+    newTextRgb.b = Math.max(0, textRgb.b * factor);
+  }
+
+  return {
+    text: rgbToHex(newTextRgb.r, newTextRgb.g, newTextRgb.b),
+    bg: bgColor
+  };
+}
+
+const ContrastResults: React.FC<ContrastResultsProps> = ({ result, textColor, backgroundColor }) => {
   const getPassIcon = (passed: boolean) => {
     return passed ? 
       <CheckCircle className="w-4 h-4 text-success" /> : 

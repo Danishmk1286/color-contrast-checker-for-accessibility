@@ -6,6 +6,7 @@ import ResourceLinks from '@/components/ResourceLinks';
 import ColorSelector from '@/components/ColorSelector';
 import ContrastResults from '@/components/ContrastResults';
 import LivePreview from '@/components/LivePreview';
+import AdaptiveUISimulation from '@/components/AdaptiveUISimulation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -120,18 +121,43 @@ const Index = () => {
             <div className="px-6 sm:px-4 md:px-0 lg:col-span-4 space-y-4 sm:space-y-4 lg:sticky lg:top-4 lg:self-start lg:h-fit">
               <ColorSelector textColor={textColor} backgroundColor={backgroundColor} onTextColorChange={setTextColor} onBackgroundColorChange={setBackgroundColor} />
               
-              {contrastResult && <ContrastResults result={contrastResult} />}
+              {contrastResult && (
+                <ContrastResults 
+                  result={contrastResult} 
+                  textColor={textColor}
+                  backgroundColor={backgroundColor}
+                />
+              )}
             </div>
 
             {/* Live Preview Section - Mobile centered */}
-            <div className="px-6 sm:px-4 md:px-0 lg:col-span-6">
-              <div className="sticky top-4 lg:top-20">
+            <div className="px-6 sm:px-4 md:px-0 lg:col-span-6 space-y-6">
+              <div>
                 <div className="mb-4 sm:mb-4 lg:hidden text-center sm:text-left">
                   <h2 className="text-xl sm:text-lg font-semibold text-foreground mb-2">Live Contrast Preview</h2>
                   <p className="text-base sm:text-sm text-muted-foreground">See how your colors perform in real website interfaces and components</p>
                 </div>
                 <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
               </div>
+
+              {/* Adaptive UI Simulation */}
+              {contrastResult && (
+                <div className="animate-fade-in">
+                  <AdaptiveUISimulation
+                    currentTextColor={textColor}
+                    currentBgColor={backgroundColor}
+                    suggestedTextColor={
+                      contrastResult.ratio >= 4.5
+                        ? textColor
+                        : contrastResult.ratio < 3
+                        ? (backgroundColor === '#ffffff' || backgroundColor.toLowerCase() === '#fff' ? '#000000' : '#ffffff')
+                        : textColor
+                    }
+                    suggestedBgColor={backgroundColor}
+                    hasIssue={contrastResult.ratio < 4.5}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
