@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, XCircle, TrendingUp, Smartphone, Monitor, AlertCircle, Lightbulb, Info } from 'lucide-react';
+import { CheckCircle, XCircle, TrendingUp, Smartphone, Monitor, AlertCircle, Lightbulb, Info, Sparkles, Loader2 } from 'lucide-react';
+import { useAccessibilityAI } from '@/hooks/useAccessibilityAI';
 
 interface ContrastResult {
   ratio: number;
@@ -123,6 +124,27 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result, textColor, ba
   };
 
   const explanation = getSemanticExplanation();
+  const { generateExplanation, isModelLoaded } = useAccessibilityAI();
+  const [aiEnhanced, setAiEnhanced] = useState(false);
+  const [aiExplanation, setAiExplanation] = useState<any>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  useEffect(() => {
+    // Auto-generate AI explanation when model is loaded and there are issues
+    if (isModelLoaded && result.ratio < 7 && !aiEnhanced) {
+      handleAIEnhance();
+    }
+  }, [isModelLoaded, result.ratio]);
+
+  const handleAIEnhance = async () => {
+    setIsGenerating(true);
+    const aiResult = await generateExplanation(result.ratio, textColor, backgroundColor);
+    setAiExplanation(aiResult);
+    setAiEnhanced(true);
+    setIsGenerating(false);
+  };
+
+  const displayExplanation = aiEnhanced && aiExplanation ? aiExplanation : explanation;
 
   const getPassBadge = (passed: boolean, label: string, size: string, deviceType: string) => {
     const IconComponent = deviceType === 'smartphone' ? Smartphone : Monitor;
@@ -151,10 +173,18 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result, textColor, ba
   return (
     <Card className="border-border bg-card rounded-lg sm:rounded-none md:rounded-lg shadow-sm sm:shadow-none md:shadow-sm">
       <CardHeader className="pb-4 sm:pb-3 px-6 sm:px-4 md:px-6 pt-6 sm:pt-4 md:pt-6 text-center sm:text-left">
-        <CardTitle className="text-foreground flex items-center justify-center sm:justify-start gap-3 text-lg sm:text-base">
-          <TrendingUp className="w-6 h-6 sm:w-4 sm:h-4 text-primary" />
-          Contrast Results
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-foreground flex items-center gap-3 text-lg sm:text-base">
+            <TrendingUp className="w-6 h-6 sm:w-4 sm:h-4 text-primary" />
+            Contrast Results
+          </CardTitle>
+          {isModelLoaded && (
+            <Badge variant="outline" className="gap-1 text-xs">
+              <Sparkles className="w-3 h-3" />
+              AI Enhanced
+            </Badge>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="space-y-6 sm:space-y-4 px-6 sm:px-4 md:px-6 pb-6 sm:pb-4 md:pb-6">
         {/* Contrast Ratio Display - Enhanced mobile */}
@@ -176,59 +206,90 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result, textColor, ba
           {getPassBadge(result.aaaLarge, 'AAA', 'Large Text (18px+)', 'monitor')}
         </div>
 
-        {/* Semantic Explanation Section */}
+        {/* Semantic Explanation Section - AI Enhanced */}
         <div className="pt-6 sm:pt-4 border-t border-border space-y-4">
-          <div className={`p-4 rounded-lg border ${
-            explanation.status === 'excellent' ? 'bg-success/10 border-success/30' :
-            explanation.status === 'good' ? 'bg-primary/10 border-primary/30' :
-            explanation.status === 'minimal' ? 'bg-yellow-500/10 border-yellow-500/30' :
-            'bg-destructive/10 border-destructive/30'
-          }`}>
-            <div className="flex items-start gap-3 mb-3">
-              <AlertCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                explanation.status === 'excellent' ? 'text-success' :
-                explanation.status === 'good' ? 'text-primary' :
-                explanation.status === 'minimal' ? 'text-yellow-600' :
-                'text-destructive'
-              }`} />
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Why This Matters</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{explanation.why}</p>
-              </div>
+          {isGenerating && (
+            <div className="flex items-center justify-center gap-2 py-4">
+              <Loader2 className="w-5 h-5 animate-spin text-primary" />
+              <span className="text-sm text-muted-foreground">Generating AI-powered insights...</span>
             </div>
-          </div>
+          )}
+          
+          {!isGenerating && (
+            <>
+              <div className={`p-4 rounded-lg border ${
+                displayExplanation.status === 'excellent' ? 'bg-success/10 border-success/30' :
+                displayExplanation.status === 'good' ? 'bg-primary/10 border-primary/30' :
+                displayExplanation.status === 'minimal' ? 'bg-yellow-500/10 border-yellow-500/30' :
+                'bg-destructive/10 border-destructive/30'
+              }`}>
+                <div className="flex items-start gap-3 mb-3">
+                  <AlertCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
+                    displayExplanation.status === 'excellent' ? 'text-success' :
+                    displayExplanation.status === 'good' ? 'text-primary' :
+                    displayExplanation.status === 'minimal' ? 'text-yellow-600' :
+                    'text-destructive'
+                  }`} />
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">
+                      Why This Matters
+                      {aiEnhanced && <Badge variant="secondary" className="ml-2 text-xs">AI</Badge>}
+                    </h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {aiEnhanced ? displayExplanation.technicalDetails : displayExplanation.why}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-          <div className="p-4 rounded-lg bg-muted/50 border border-border">
-            <div className="flex items-start gap-3 mb-3">
-              <Info className="w-5 h-5 mt-0.5 text-primary flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">User Impact</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{explanation.impact}</p>
+              <div className="p-4 rounded-lg bg-muted/50 border border-border">
+                <div className="flex items-start gap-3 mb-3">
+                  <Info className="w-5 h-5 mt-0.5 text-primary flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">User Impact</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {aiEnhanced ? displayExplanation.userImpact : displayExplanation.impact}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div className={`p-4 rounded-lg border ${
-            explanation.status === 'excellent' || explanation.status === 'good' 
-              ? 'bg-primary/5 border-primary/20' 
-              : 'bg-yellow-500/5 border-yellow-500/20'
-          }`}>
-            <div className="flex items-start gap-3">
-              <Lightbulb className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                explanation.status === 'excellent' || explanation.status === 'good' 
-                  ? 'text-primary' 
-                  : 'text-yellow-600'
-              }`} />
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">
-                  {explanation.status === 'excellent' || explanation.status === 'good' 
-                    ? 'Recommendation' 
-                    : 'How to Fix'}
-                </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{explanation.suggestion}</p>
+              <div className={`p-4 rounded-lg border ${
+                displayExplanation.status === 'excellent' || displayExplanation.status === 'good' 
+                  ? 'bg-primary/5 border-primary/20' 
+                  : 'bg-yellow-500/5 border-yellow-500/20'
+              }`}>
+                <div className="flex items-start gap-3">
+                  <Lightbulb className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
+                    displayExplanation.status === 'excellent' || displayExplanation.status === 'good' 
+                      ? 'text-primary' 
+                      : 'text-yellow-600'
+                  }`} />
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">
+                      {displayExplanation.status === 'excellent' || displayExplanation.status === 'good' 
+                        ? 'Recommendation' 
+                        : 'How to Fix'}
+                    </h4>
+                    {aiEnhanced && Array.isArray(displayExplanation.actionableSteps) ? (
+                      <ul className="text-sm text-muted-foreground leading-relaxed space-y-1">
+                        {displayExplanation.actionableSteps.map((step: string, idx: number) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="text-primary mt-1">•</span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {displayExplanation.suggestion}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
 
         {/* Guidelines - Enhanced mobile layout */}
