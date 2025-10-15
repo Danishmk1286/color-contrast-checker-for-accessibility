@@ -113,14 +113,33 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Main Tool Section - Balanced mobile spacing, desktop sticky sidebar */}
-      <section className="py-6 sm:py-6 md:py-8 px-0 md:px-4 lg:py-0">
-        <div className="w-full md:container md:mx-auto md:max-w-7xl">
-          <div className="grid gap-4 sm:gap-4 md:gap-6 lg:grid-cols-10 lg:gap-8">
-            {/* Controls Section - Desktop no scroll, mobile centered */}
-            <div className="px-6 sm:px-4 md:px-0 lg:col-span-4 space-y-4 sm:space-y-4 lg:sticky lg:top-4 lg:self-start lg:h-fit">
-              <ColorSelector textColor={textColor} backgroundColor={backgroundColor} onTextColorChange={setTextColor} onBackgroundColorChange={setBackgroundColor} />
-              
+      {/* Main Tool Section - Clean, responsive layout */}
+      <section className="py-8 px-4 bg-gradient-to-b from-muted/30 to-background">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Left Column: Color Selector */}
+            <div className="lg:col-span-1">
+              <div className="lg:sticky lg:top-6">
+                <ColorSelector 
+                  textColor={textColor} 
+                  backgroundColor={backgroundColor} 
+                  onTextColorChange={setTextColor} 
+                  onBackgroundColorChange={setBackgroundColor} 
+                />
+              </div>
+            </div>
+
+            {/* Middle Column: Live Preview */}
+            <div className="lg:col-span-2 space-y-6">
+              <div>
+                <div className="mb-4">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">Live Preview</h2>
+                  <p className="text-muted-foreground">See your colors in action on real UI components</p>
+                </div>
+                <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
+              </div>
+
+              {/* Contrast Results Below Preview */}
               {contrastResult && (
                 <ContrastResults 
                   result={contrastResult} 
@@ -128,17 +147,6 @@ const Index = () => {
                   backgroundColor={backgroundColor}
                 />
               )}
-            </div>
-
-            {/* Live Preview Section - Mobile centered */}
-            <div className="px-6 sm:px-4 md:px-0 lg:col-span-6 space-y-6">
-              <div>
-                <div className="mb-4 sm:mb-4 lg:hidden text-center sm:text-left">
-                  <h2 className="text-xl sm:text-lg font-semibold text-foreground mb-2">Live Contrast Preview</h2>
-                  <p className="text-base sm:text-sm text-muted-foreground">See how your colors perform in real website interfaces and components</p>
-                </div>
-                <LivePreview textColor={textColor} backgroundColor={backgroundColor} />
-              </div>
 
               {/* Adaptive UI Simulation */}
               {contrastResult && (

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Palette, ArrowUpDown, Copy } from 'lucide-react';
+import { Palette, ArrowUpDown, Copy, Pipette } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ColorSelectorProps {
@@ -71,123 +70,135 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
     };
 
     return (
-      <div className="space-y-4">
-        <Label className="text-foreground text-sm font-medium">{label}</Label>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <Label className="text-foreground text-sm font-semibold">{label}</Label>
+        </div>
         
-        {/* Hex Display */}
-        <div className="relative">
-          <div 
-            className="w-full p-6 rounded-lg border-2 border-border flex items-center justify-between group cursor-pointer hover:border-primary/50 transition-colors"
-            style={{ backgroundColor: color }}
-          >
-            <span className="text-4xl font-bold font-mono" style={{ 
-              color: label.includes('Background') ? textColor : backgroundColor,
-              textShadow: '0 0 20px rgba(0,0,0,0.1)'
-            }}>
-              {color.toUpperCase()}
-            </span>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => handleCopyColor(color, label)}
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
-              style={{ 
-                color: label.includes('Background') ? textColor : backgroundColor 
-              }}
-            >
-              <Copy className="w-5 h-5" />
-            </Button>
+        {/* Color Picker + Hex Input Row */}
+        <div className="flex gap-3 items-center">
+          <div className="relative group">
+            <Input
+              type="color"
+              value={color}
+              onChange={(e) => onChange(e.target.value)}
+              className="w-16 h-16 cursor-pointer border-2 border-border rounded-lg overflow-hidden p-1 hover:border-primary transition-colors"
+              title="Pick a color"
+            />
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <div className="bg-popover text-popover-foreground text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
+                <Pipette className="w-3 h-3 inline mr-1" />
+                Pick color
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-1">
+            <div className="relative">
+              <Input
+                type="text"
+                value={color.toUpperCase()}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^#[0-9A-F]{6}$/i.test(value)) {
+                    onChange(value);
+                  }
+                }}
+                className="font-mono text-lg font-bold uppercase pr-12"
+                placeholder="#FFFFFF"
+              />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => handleCopyColor(color, label)}
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
+                title="Copy to clipboard"
+              >
+                <Copy className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* RGB/HSL Tabs */}
-        <Tabs defaultValue="rgb" className="w-full">
-          <TabsList className="w-full">
-            <TabsTrigger value="rgb" className="flex-1">RGB</TabsTrigger>
-            <TabsTrigger value="hsl" className="flex-1">HSL</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="rgb" className="space-y-4 pt-4">
-            {/* Red Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <Label className="text-sm">Red {rgb.r}</Label>
-              </div>
-              <Slider
-                value={[rgb.r]}
-                onValueChange={([value]) => handleRgbChange('r', value)}
-                max={255}
-                step={1}
-                className="w-full"
-              />
+        {/* RGB Sliders */}
+        <div className="space-y-3 pt-2">
+          {/* Red Slider */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between items-center">
+              <Label className="text-xs text-muted-foreground">Red</Label>
+              <span className="text-xs font-mono font-medium text-foreground">{rgb.r}</span>
             </div>
+            <Slider
+              value={[rgb.r]}
+              onValueChange={([value]) => handleRgbChange('r', value)}
+              max={255}
+              step={1}
+              className="w-full"
+            />
+          </div>
 
-            {/* Green Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <Label className="text-sm">Green {rgb.g}</Label>
-              </div>
-              <Slider
-                value={[rgb.g]}
-                onValueChange={([value]) => handleRgbChange('g', value)}
-                max={255}
-                step={1}
-                className="w-full"
-              />
+          {/* Green Slider */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between items-center">
+              <Label className="text-xs text-muted-foreground">Green</Label>
+              <span className="text-xs font-mono font-medium text-foreground">{rgb.g}</span>
             </div>
+            <Slider
+              value={[rgb.g]}
+              onValueChange={([value]) => handleRgbChange('g', value)}
+              max={255}
+              step={1}
+              className="w-full"
+            />
+          </div>
 
-            {/* Blue Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <Label className="text-sm">Blue {rgb.b}</Label>
-              </div>
-              <Slider
-                value={[rgb.b]}
-                onValueChange={([value]) => handleRgbChange('b', value)}
-                max={255}
-                step={1}
-                className="w-full"
-              />
+          {/* Blue Slider */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between items-center">
+              <Label className="text-xs text-muted-foreground">Blue</Label>
+              <span className="text-xs font-mono font-medium text-foreground">{rgb.b}</span>
             </div>
-          </TabsContent>
-
-          <TabsContent value="hsl" className="pt-4">
-            <p className="text-sm text-muted-foreground text-center py-4">HSL controls coming soon</p>
-          </TabsContent>
-        </Tabs>
+            <Slider
+              value={[rgb.b]}
+              onValueChange={([value]) => handleRgbChange('b', value)}
+              max={255}
+              step={1}
+              className="w-full"
+            />
+          </div>
+        </div>
       </div>
     );
   };
 
   return (
     <Card className="border-border bg-card">
-      <CardHeader>
-        <CardTitle className="text-card-foreground flex items-center gap-3">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-card-foreground flex items-center gap-2 text-lg">
           <Palette className="w-5 h-5 text-primary" />
-          Color Selection
+          Choose Colors
         </CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">Pick colors or adjust with sliders</p>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <ColorControl 
-            color={backgroundColor}
-            onChange={onBackgroundColorChange}
-            label="Background colour"
-          />
-          
-          <ColorControl 
-            color={textColor}
-            onChange={onTextColorChange}
-            label="Foreground colour"
-          />
-        </div>
+      <CardContent className="space-y-5">
+        <ColorControl 
+          color={backgroundColor}
+          onChange={onBackgroundColorChange}
+          label="Background Color"
+        />
+        
+        <ColorControl 
+          color={textColor}
+          onChange={onTextColorChange}
+          label="Text Color"
+        />
 
         {/* Swap Button */}
         <div className="flex justify-center pt-2">
           <Button 
             variant="outline" 
             onClick={handleSwapColors}
-            className="gap-2"
+            className="gap-2 w-full"
           >
             <ArrowUpDown className="w-4 h-4" />
             Swap Colors

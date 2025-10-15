@@ -171,155 +171,63 @@ const ContrastResults: React.FC<ContrastResultsProps> = ({ result, textColor, ba
   };
 
   return (
-    <Card className="border-border bg-card rounded-lg sm:rounded-none md:rounded-lg shadow-sm sm:shadow-none md:shadow-sm">
-      <CardHeader className="pb-4 sm:pb-3 px-6 sm:px-4 md:px-6 pt-6 sm:pt-4 md:pt-6 text-center sm:text-left">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-foreground flex items-center gap-3 text-lg sm:text-base">
-            <TrendingUp className="w-6 h-6 sm:w-4 sm:h-4 text-primary" />
-            Contrast Results
-          </CardTitle>
-          {isModelLoaded && (
-            <Badge variant="outline" className="gap-1 text-xs">
-              <Sparkles className="w-3 h-3" />
-              AI Enhanced
-            </Badge>
-          )}
-        </div>
+    <Card className="border-border bg-card">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-foreground flex items-center gap-2 text-lg">
+          <TrendingUp className="w-5 h-5 text-primary" />
+          Contrast Results
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6 sm:space-y-4 px-6 sm:px-4 md:px-6 pb-6 sm:pb-4 md:pb-6">
-        {/* Contrast Ratio Display - Enhanced mobile */}
-        <div className="text-center py-6 sm:py-3 bg-gradient-to-br from-muted to-muted/50 rounded-xl sm:rounded-lg border border-border/50">
-          <div className="text-sm sm:text-xs text-muted-foreground mb-3 sm:mb-1 font-medium">Contrast Ratio</div>
-          <div className="text-4xl sm:text-3xl font-bold text-foreground mb-2">
-            {result.ratio.toFixed(2)}
+      <CardContent className="space-y-4">
+        {/* Contrast Ratio Display */}
+        <div className="text-center py-4 bg-gradient-to-br from-muted to-muted/50 rounded-lg border border-border/50">
+          <div className="text-xs text-muted-foreground mb-1 font-medium">Contrast Ratio</div>
+          <div className="text-3xl font-bold text-foreground mb-1">
+            {result.ratio.toFixed(2)}:1
           </div>
-          <div className="text-sm text-muted-foreground">
-            {result.ratio >= 4.5 ? '✅ Great contrast' : result.ratio >= 3 ? '⚠️ Fair contrast' : '❌ Poor contrast'}
+          <div className="text-sm font-medium">
+            {result.ratio >= 4.5 ? (
+              <span className="text-success">✓ Passes AA</span>
+            ) : result.ratio >= 3 ? (
+              <span className="text-yellow-600">⚠ Large text only</span>
+            ) : (
+              <span className="text-destructive">✗ Needs improvement</span>
+            )}
           </div>
         </div>
 
-        {/* WCAG Results - Mobile optimized */}
-        <div className="space-y-3 sm:space-y-2">
-          {getPassBadge(result.aaNormal, 'AA', 'Normal Text (16px)', 'smartphone')}
-          {getPassBadge(result.aaLarge, 'AA', 'Large Text (18px+)', 'monitor')}
-          {getPassBadge(result.aaaNormal, 'AAA', 'Normal Text (16px)', 'smartphone')}
-          {getPassBadge(result.aaaLarge, 'AAA', 'Large Text (18px+)', 'monitor')}
-        </div>
-
-        {/* Semantic Explanation Section - AI Enhanced */}
-        <div className="pt-6 sm:pt-4 border-t border-border space-y-4">
-          {isGenerating && (
-            <div className="flex items-center justify-center gap-2 py-4">
-              <Loader2 className="w-5 h-5 animate-spin text-primary" />
-              <span className="text-sm text-muted-foreground">Generating AI-powered insights...</span>
+        {/* WCAG Compliance Badges - Simplified */}
+        <div className="grid grid-cols-2 gap-2">
+          <div className={`p-3 rounded-lg border text-center ${result.aaNormal ? 'bg-success/10 border-success/30' : 'bg-muted border-border'}`}>
+            <div className="text-xs font-semibold mb-1 flex items-center justify-center gap-1">
+              {result.aaNormal ? <CheckCircle className="w-3 h-3 text-success" /> : <XCircle className="w-3 h-3 text-muted-foreground" />}
+              AA Normal
             </div>
-          )}
+            <div className="text-xs text-muted-foreground">4.5:1</div>
+          </div>
           
-          {!isGenerating && (
-            <>
-              <div className={`p-4 rounded-lg border ${
-                displayExplanation.status === 'excellent' ? 'bg-success/10 border-success/30' :
-                displayExplanation.status === 'good' ? 'bg-primary/10 border-primary/30' :
-                displayExplanation.status === 'minimal' ? 'bg-yellow-500/10 border-yellow-500/30' :
-                'bg-destructive/10 border-destructive/30'
-              }`}>
-                <div className="flex items-start gap-3 mb-3">
-                  <AlertCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                    displayExplanation.status === 'excellent' ? 'text-success' :
-                    displayExplanation.status === 'good' ? 'text-primary' :
-                    displayExplanation.status === 'minimal' ? 'text-yellow-600' :
-                    'text-destructive'
-                  }`} />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">
-                      Why This Matters
-                      {aiEnhanced && <Badge variant="secondary" className="ml-2 text-xs">AI</Badge>}
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {aiEnhanced ? displayExplanation.technicalDetails : displayExplanation.why}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-lg bg-muted/50 border border-border">
-                <div className="flex items-start gap-3 mb-3">
-                  <Info className="w-5 h-5 mt-0.5 text-primary flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">User Impact</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {aiEnhanced ? displayExplanation.userImpact : displayExplanation.impact}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={`p-4 rounded-lg border ${
-                displayExplanation.status === 'excellent' || displayExplanation.status === 'good' 
-                  ? 'bg-primary/5 border-primary/20' 
-                  : 'bg-yellow-500/5 border-yellow-500/20'
-              }`}>
-                <div className="flex items-start gap-3">
-                  <Lightbulb className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                    displayExplanation.status === 'excellent' || displayExplanation.status === 'good' 
-                      ? 'text-primary' 
-                      : 'text-yellow-600'
-                  }`} />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">
-                      {displayExplanation.status === 'excellent' || displayExplanation.status === 'good' 
-                        ? 'Recommendation' 
-                        : 'How to Fix'}
-                    </h4>
-                    {aiEnhanced && Array.isArray(displayExplanation.actionableSteps) ? (
-                      <ul className="text-sm text-muted-foreground leading-relaxed space-y-1">
-                        {displayExplanation.actionableSteps.map((step: string, idx: number) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <span className="text-primary mt-1">•</span>
-                            <span>{step}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {displayExplanation.suggestion}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* Guidelines - Enhanced mobile layout */}
-        <div className="pt-6 sm:pt-3 border-t border-border">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3 text-sm sm:text-xs">
-            <div className="p-4 sm:p-3 bg-primary/5 rounded-lg border border-primary/10">
-              <div className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-primary" />
-                Level AA
-              </div>
-              <div className="space-y-1 text-muted-foreground">
-                <div>Normal: 4.5:1</div>
-                <div>Large: 3:1</div>
-              </div>
+          <div className={`p-3 rounded-lg border text-center ${result.aaLarge ? 'bg-success/10 border-success/30' : 'bg-muted border-border'}`}>
+            <div className="text-xs font-semibold mb-1 flex items-center justify-center gap-1">
+              {result.aaLarge ? <CheckCircle className="w-3 h-3 text-success" /> : <XCircle className="w-3 h-3 text-muted-foreground" />}
+              AA Large
             </div>
-            <div className="p-4 sm:p-3 bg-secondary/50 rounded-lg border border-border/50">
-              <div className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                Level AAA
-              </div>
-              <div className="space-y-1 text-muted-foreground">
-                <div>Normal: 7:1</div>
-                <div>Large: 4.5:1</div>
-              </div>
-            </div>
+            <div className="text-xs text-muted-foreground">3:1</div>
           </div>
-          <div className="mt-4 sm:mt-3 p-3 bg-muted/50 rounded-lg">
-            <p className="text-sm sm:text-xs text-muted-foreground text-center">
-              💡 Large text: 18px+ (24px) or 14px+ bold (18.5px)
-            </p>
+          
+          <div className={`p-3 rounded-lg border text-center ${result.aaaNormal ? 'bg-success/10 border-success/30' : 'bg-muted border-border'}`}>
+            <div className="text-xs font-semibold mb-1 flex items-center justify-center gap-1">
+              {result.aaaNormal ? <CheckCircle className="w-3 h-3 text-success" /> : <XCircle className="w-3 h-3 text-muted-foreground" />}
+              AAA Normal
+            </div>
+            <div className="text-xs text-muted-foreground">7:1</div>
+          </div>
+          
+          <div className={`p-3 rounded-lg border text-center ${result.aaaLarge ? 'bg-success/10 border-success/30' : 'bg-muted border-border'}`}>
+            <div className="text-xs font-semibold mb-1 flex items-center justify-center gap-1">
+              {result.aaaLarge ? <CheckCircle className="w-3 h-3 text-success" /> : <XCircle className="w-3 h-3 text-muted-foreground" />}
+              AAA Large
+            </div>
+            <div className="text-xs text-muted-foreground">4.5:1</div>
           </div>
         </div>
       </CardContent>
