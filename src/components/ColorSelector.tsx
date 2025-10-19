@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Separator } from '@/components/ui/separator';
 import { Palette, ArrowUpDown, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -104,7 +105,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
     });
   };
 
-  const ColorControl = ({ 
+  const ColorControl = React.memo(({ 
     color, 
     onChange, 
     label 
@@ -113,22 +114,35 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
     onChange: (color: string) => void; 
     label: string;
   }) => {
-    const rgb = hexToRgb(color);
-    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+    const [colorMode, setColorMode] = useState<'rgb' | 'hsl'>('rgb');
     
-    const handleRgbChange = (channel: 'r' | 'g' | 'b', value: number) => {
+    const rgb = useMemo(() => hexToRgb(color), [color]);
+    const hsl = useMemo(() => rgbToHsl(rgb.r, rgb.g, rgb.b), [rgb.r, rgb.g, rgb.b]);
+    
+    const handleRgbChange = useCallback((channel: 'r' | 'g' | 'b', value: number) => {
       const newRgb = { ...rgb, [channel]: value };
       onChange(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
-    };
+    }, [rgb, onChange]);
 
-    const handleHslChange = (channel: 'h' | 's' | 'l', value: number) => {
+    const handleHslChange = useCallback((channel: 'h' | 's' | 'l', value: number) => {
       const newHsl = { ...hsl, [channel]: value };
       const newRgb = hslToRgb(newHsl.h, newHsl.s, newHsl.l);
       onChange(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
-    };
+    }, [hsl, onChange]);
+    
+    const handleHexChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (/^#[0-9A-F]{6}$/i.test(val)) {
+        onChange(val);
+      }
+    }, [onChange]);
+    
+    const handleColorPickerChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+    }, [onChange]);
 
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 p-4 rounded-lg bg-muted/30 border-2 border-border/50">
         <Label className="text-foreground text-base sm:text-sm font-bold block">{label}</Label>
         
         {/* Color Picker + Hex Display */}
@@ -136,19 +150,14 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
           <input
             type="color"
             value={color}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={handleColorPickerChange}
             className="w-16 h-16 sm:w-14 sm:h-14 rounded-lg border-2 border-border cursor-pointer"
           />
           <div className="flex-1 relative">
             <Input
               type="text"
               value={color.toUpperCase()}
-              onChange={(e) => {
-                const val = e.target.value;
-                if (/^#[0-9A-F]{6}$/i.test(val)) {
-                  onChange(val);
-                }
-              }}
+              onChange={handleHexChange}
               className="font-mono text-base sm:text-sm font-semibold pr-10"
               placeholder="#FFFFFF"
             />
@@ -164,7 +173,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
         </div>
 
         {/* RGB/HSL Tabs */}
-        <Tabs defaultValue="rgb" className="w-full">
+        <Tabs value={colorMode} onValueChange={(v) => setColorMode(v as 'rgb' | 'hsl')} className="w-full">
           <TabsList className="w-full grid grid-cols-2">
             <TabsTrigger value="rgb">RGB</TabsTrigger>
             <TabsTrigger value="hsl">HSL</TabsTrigger>
@@ -266,7 +275,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
         </Tabs>
       </div>
     );
-  };
+  });
 
   return (
     <Card className="border-border bg-card">
@@ -282,6 +291,15 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
           onChange={onBackgroundColorChange}
           label="Background Colour"
         />
+        
+        <div className="relative py-3">
+          <Separator className="absolute top-1/2 -translate-y-1/2" />
+          <div className="relative flex justify-center">
+            <span className="bg-card px-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+              or
+            </span>
+          </div>
+        </div>
         
         <ColorControl 
           color={textColor}
