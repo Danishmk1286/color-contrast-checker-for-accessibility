@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -41,6 +41,56 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
     }).join('');
   };
 
+  // Convert RGB to HSL
+  const rgbToHsl = (r: number, g: number, b: number): { h: number; s: number; l: number } => {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0, s = 0, l = (max + min) / 2;
+
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+        case g: h = ((b - r) / d + 2) / 6; break;
+        case b: h = ((r - g) / d + 4) / 6; break;
+      }
+    }
+
+    return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+  };
+
+  // Convert HSL to RGB
+  const hslToRgb = (h: number, s: number, l: number): { r: number; g: number; b: number } => {
+    h /= 360;
+    s /= 100;
+    l /= 100;
+    let r, g, b;
+
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p: number, q: number, t: number) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+
+    return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+  };
+
   const handleSwapColors = () => {
     onTextColorChange(backgroundColor);
     onBackgroundColorChange(textColor);
@@ -64,54 +114,68 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
     label: string;
   }) => {
     const rgb = hexToRgb(color);
+    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
     
     const handleRgbChange = (channel: 'r' | 'g' | 'b', value: number) => {
       const newRgb = { ...rgb, [channel]: value };
       onChange(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
     };
 
+    const handleHslChange = (channel: 'h' | 's' | 'l', value: number) => {
+      const newHsl = { ...hsl, [channel]: value };
+      const newRgb = hslToRgb(newHsl.h, newHsl.s, newHsl.l);
+      onChange(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+    };
+
     return (
-      <div className="space-y-4">
-        <Label className="text-foreground text-sm font-medium">{label}</Label>
+      <div className="space-y-3">
+        <Label className="text-foreground text-base sm:text-sm font-bold block">{label}</Label>
         
-        {/* Hex Display */}
-        <div className="relative">
-          <div 
-            className="w-full p-6 rounded-lg border-2 border-border flex items-center justify-between group cursor-pointer hover:border-primary/50 transition-colors"
-            style={{ backgroundColor: color }}
-          >
-            <span className="text-4xl font-bold font-mono" style={{ 
-              color: label.includes('Background') ? textColor : backgroundColor,
-              textShadow: '0 0 20px rgba(0,0,0,0.1)'
-            }}>
-              {color.toUpperCase()}
-            </span>
+        {/* Color Picker + Hex Display */}
+        <div className="flex items-center gap-3">
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-16 h-16 sm:w-14 sm:h-14 rounded-lg border-2 border-border cursor-pointer"
+          />
+          <div className="flex-1 relative">
+            <Input
+              type="text"
+              value={color.toUpperCase()}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (/^#[0-9A-F]{6}$/i.test(val)) {
+                  onChange(val);
+                }
+              }}
+              className="font-mono text-base sm:text-sm font-semibold pr-10"
+              placeholder="#FFFFFF"
+            />
             <Button
               variant="ghost"
               size="icon"
               onClick={() => handleCopyColor(color, label)}
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
-              style={{ 
-                color: label.includes('Background') ? textColor : backgroundColor 
-              }}
+              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
             >
-              <Copy className="w-5 h-5" />
+              <Copy className="w-4 h-4" />
             </Button>
           </div>
         </div>
 
         {/* RGB/HSL Tabs */}
         <Tabs defaultValue="rgb" className="w-full">
-          <TabsList className="w-full">
-            <TabsTrigger value="rgb" className="flex-1">RGB</TabsTrigger>
-            <TabsTrigger value="hsl" className="flex-1">HSL</TabsTrigger>
+          <TabsList className="w-full grid grid-cols-2">
+            <TabsTrigger value="rgb">RGB</TabsTrigger>
+            <TabsTrigger value="hsl">HSL</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="rgb" className="space-y-4 pt-4">
+          <TabsContent value="rgb" className="space-y-3 pt-3">
             {/* Red Slider */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <Label className="text-sm">Red {rgb.r}</Label>
+                <Label className="text-xs sm:text-sm font-medium">Red</Label>
+                <span className="text-xs sm:text-sm font-mono text-muted-foreground">{rgb.r}</span>
               </div>
               <Slider
                 value={[rgb.r]}
@@ -123,9 +187,10 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
             </div>
 
             {/* Green Slider */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <Label className="text-sm">Green {rgb.g}</Label>
+                <Label className="text-xs sm:text-sm font-medium">Green</Label>
+                <span className="text-xs sm:text-sm font-mono text-muted-foreground">{rgb.g}</span>
               </div>
               <Slider
                 value={[rgb.g]}
@@ -137,9 +202,10 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
             </div>
 
             {/* Blue Slider */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <Label className="text-sm">Blue {rgb.b}</Label>
+                <Label className="text-xs sm:text-sm font-medium">Blue</Label>
+                <span className="text-xs sm:text-sm font-mono text-muted-foreground">{rgb.b}</span>
               </div>
               <Slider
                 value={[rgb.b]}
@@ -151,8 +217,51 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
             </div>
           </TabsContent>
 
-          <TabsContent value="hsl" className="pt-4">
-            <p className="text-sm text-muted-foreground text-center py-4">HSL controls coming soon</p>
+          <TabsContent value="hsl" className="space-y-3 pt-3">
+            {/* Hue Slider */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <Label className="text-xs sm:text-sm font-medium">Hue</Label>
+                <span className="text-xs sm:text-sm font-mono text-muted-foreground">{hsl.h}°</span>
+              </div>
+              <Slider
+                value={[hsl.h]}
+                onValueChange={([value]) => handleHslChange('h', value)}
+                max={360}
+                step={1}
+                className="w-full"
+              />
+            </div>
+
+            {/* Saturation Slider */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <Label className="text-xs sm:text-sm font-medium">Saturation</Label>
+                <span className="text-xs sm:text-sm font-mono text-muted-foreground">{hsl.s}%</span>
+              </div>
+              <Slider
+                value={[hsl.s]}
+                onValueChange={([value]) => handleHslChange('s', value)}
+                max={100}
+                step={1}
+                className="w-full"
+              />
+            </div>
+
+            {/* Lightness Slider */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <Label className="text-xs sm:text-sm font-medium">Lightness</Label>
+                <span className="text-xs sm:text-sm font-mono text-muted-foreground">{hsl.l}%</span>
+              </div>
+              <Slider
+                value={[hsl.l]}
+                onValueChange={([value]) => handleHslChange('l', value)}
+                max={100}
+                step={1}
+                className="w-full"
+              />
+            </div>
           </TabsContent>
         </Tabs>
       </div>
@@ -161,33 +270,32 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
 
   return (
     <Card className="border-border bg-card">
-      <CardHeader>
-        <CardTitle className="text-card-foreground flex items-center gap-3">
-          <Palette className="w-5 h-5 text-primary" />
+      <CardHeader className="pb-3 px-4 sm:px-6 pt-4 sm:pt-6">
+        <CardTitle className="text-card-foreground flex items-center gap-2 text-base sm:text-lg">
+          <Palette className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
           Color Selection
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <ColorControl 
-            color={backgroundColor}
-            onChange={onBackgroundColorChange}
-            label="Background colour"
-          />
-          
-          <ColorControl 
-            color={textColor}
-            onChange={onTextColorChange}
-            label="Foreground colour"
-          />
-        </div>
+      <CardContent className="space-y-5 px-4 sm:px-6 pb-4 sm:pb-6">
+        <ColorControl 
+          color={backgroundColor}
+          onChange={onBackgroundColorChange}
+          label="Background Colour"
+        />
+        
+        <ColorControl 
+          color={textColor}
+          onChange={onTextColorChange}
+          label="Foreground Colour"
+        />
 
         {/* Swap Button */}
-        <div className="flex justify-center pt-2">
+        <div className="flex justify-center pt-1">
           <Button 
             variant="outline" 
             onClick={handleSwapColors}
-            className="gap-2"
+            className="gap-2 w-full sm:w-auto"
+            size="sm"
           >
             <ArrowUpDown className="w-4 h-4" />
             Swap Colors
