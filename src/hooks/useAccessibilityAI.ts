@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { pipeline, env } from '@huggingface/transformers';
 
-// Lazy-load transformers in the browser to avoid breaking the app if the lib or model can't load
-// We keep all AI features optional. If loading fails, we fall back to handcrafted explanations.
-let transformers: any = null;
+// Configure transformers to use local models
+env.allowLocalModels = false;
+env.allowRemoteModels = true;
 
 interface AIExplanation {
   summary: string;
@@ -20,27 +21,20 @@ export const useAccessibilityAI = () => {
   useEffect(() => {
     const loadModel = async () => {
       try {
-        // Dynamically import to avoid breaking SSR/browsers without support
-        const mod = await import('@huggingface/transformers');
-        transformers = mod;
-        const { pipeline, env } = mod as any;
-        // Configure transformers to use remote browser-friendly models
-        env.allowLocalModels = false;
-        env.allowRemoteModels = true;
-
-        // Use a lightweight text generation model, fallback is handled below
+        // Use a lightweight text generation model
+        // phi-2 or similar small models work well for this use case
         generatorRef.current = await pipeline(
           'text-generation',
           'onnx-community/Qwen2.5-0.5B-Instruct',
-          {
+          { 
             device: 'webgpu',
-            // Fallback to wasm/CPU automatically handled by the lib when WebGPU isn't available
-            dtype: 'q4',
+            // Fallback to wasm if WebGPU is not available
+            dtype: 'q4'
           }
         );
         setIsModelLoaded(true);
       } catch (error) {
-        console.warn('AI model optional load failed; falling back to heuristics.', error);
+        console.error('Failed to load AI model:', error);
         // Model loading failed, we'll use fallback explanations
         setIsModelLoaded(false);
       }
